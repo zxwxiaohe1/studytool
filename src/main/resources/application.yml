@@ -1,0 +1,55 @@
+#开发环境配置
+server:
+  port: 8085
+spring:
+  datasource:
+    # 使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://172.39.8.241:3306/study_self?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: 111111x
+    filters: stat
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+
+#mybatis
+#请注意，在旧版MybatisPlus中，这里使用的mybatis-plus。但新版已经改正了，继续使用会出错，启动不理。所以使用mybatis即可
+mybatis:
+  #Mapper文件所在地址
+  mapper-locations: classpath*:/mapper/**Mapper.xml
+  #实体扫描，多个package用逗号或者分号分隔-实体类所在路径
+  typeAliasesPackage: com.study.en.domain.*
+  global-config:
+  #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
+  id-type: 3
+  #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+  field-strategy: 2
+  #驼峰下划线转换
+  db-column-underline: true
+  #刷新mapper 调试神器
+  refresh-mapper: true
+  #数据库大写下划线转换
+  capital-mode: true
+  #序列接口实现类配置
+  #key-generator: com.baomidou.springboot.xxx
+  #逻辑删除配置（下面3个配置）
+  logic-delete-value: 0
+  logic-not-delete-value: 1
+  #自定义SQL注入器
+  #sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
+  #自定义填充策略接口实现
+  #meta-object-handler: com.baomidou.springboot.xxx
+  configuration:
+  map-underscore-to-camel-case: true
+  cache-enabled: false
