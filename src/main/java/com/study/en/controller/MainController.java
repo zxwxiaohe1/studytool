@@ -1,44 +1,33 @@
 package com.study.en.controller;
 
-import com.study.en.bean.Column;
-import com.study.en.bean.DataItem;
-import com.study.en.bean.Table;
 import com.study.en.domain.service.ArticleService;
-import com.study.en.utils.TreeUtils;
+import com.study.en.view.EnglishFormatView;
+import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.scene.layout.Pane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
-import java.net.URL;
-import java.util.*;
 
 /**
  *
  */
 @Controller
-public class MainController implements Initializable {
+public class MainController {
 
     @Autowired
     private ArticleService articleService;
+    @Autowired
+    public EnglishFormatView englishFormatView;
     @FXML
-    private TreeView<DataItem> treeViewDataSource;
+    public Pane dynamicPane;
     @FXML
-    private TreeItem<String> treeItemDataSourceRoot;
+    public SplitPane splitPane;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        Table dataItem = new Table();
-        Column english = new Column();
-        english.setColumnName("English Format");
-        Column noteBook = new Column();
-        noteBook.setColumnName("NoteBook");
-        List<Column> columns = new ArrayList<>();
-        columns.add(english);
-        columns.add(noteBook);
-        dataItem.setColumns(columns);
-//        treeItemDataSourceRoot.setValue("dsfs");
+
+    public void showEnglishFormatView(final Event e) {
+        dynamicPane.getChildren().clear();
+        dynamicPane.getChildren().add(englishFormatView.getView());
     }
 }

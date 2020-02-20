@@ -1,14 +1,11 @@
 .button {
-    -fx-background-color: #F4F4F4;
+    -fx-background-color: #EEF8F8;
     -fx-background-radius: 0em;
+    -fx-border-color: #3AEAE4;
+    -fx-border-style: dotted solid double;
 }
-
-.buttonGuideList:hover {
-    -fx-font-family: "FZCuYuan-M03S";
-    -fx-background-color: transparent;
-    -fx-text-fill: #6666ff;
-    -fx-font-size: 10pt;
-    -fx-font-weight: bold;
+.button:hover {
+    -fx-background-color: #fff;
 }
 
 .button:pressed {
@@ -18,10 +15,6 @@
 .exportButton {
     -fx-text-fill: #1296db;
 }
-
-/*.button:focused {*/
-/*-fx-background-color: #fff;*/
-/*}*/
 
 .anchorPane {
     -fx-background-color: #F4F4F4;
@@ -45,5 +38,6 @@
 /*split-pane*/
 .split-pane:horizontal > .split-pane-divider {
     -fx-padding: 0 0 0 0;
+    -fx-border-radius: 2;
     /*-fx-background-color: #E8E8E8;*/
 }

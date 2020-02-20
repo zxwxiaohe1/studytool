@@ -9,9 +9,9 @@
         <relativePath/>
     </parent>
     <groupId>com.study.en</groupId>
-    <artifactId>admin</artifactId>
+    <artifactId>studytool</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>admin</name>
+    <name>studytool</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>

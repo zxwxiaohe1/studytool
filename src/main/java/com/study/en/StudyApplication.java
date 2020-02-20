@@ -1,5 +1,6 @@
 package com.study.en;
 
+import de.felixroske.jfxsupport.AbstractJavaFxApplicationSupport;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +19,7 @@ import org.springframework.context.ConfigurableApplicationContext;
  */
 @Slf4j
 @SpringBootApplication
-public class StudyApplication  extends Application {
+public class StudyApplication  extends AbstractJavaFxApplicationSupport {
 
     private FXMLLoader fxmlLoader;
 
