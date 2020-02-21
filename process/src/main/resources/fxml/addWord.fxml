@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<BorderPane fx:id="addWordPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="400.0"
+            prefWidth="800.0" stylesheets="@../css/addWord.css" xmlns="http://javafx.com/javafx/8.0.141"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.study.en.controller.AddWordController">
+    <center>
+      <Pane>
+          <HBox layoutX="102.0" layoutY="190.0">
+              <Label prefHeight="20.0" styleClass="guideLabel" text="Export doc Name: "/>
+              <TextField minHeight="27.0" minWidth="300.0" fx:id="docName" editable="true"></TextField>
+          </HBox>
+      </Pane>
+    </center>
+    <right>
+        <Button text="right"></Button>
+    </right>
+    <bottom>
+        <Button text="bottom"></Button>
+    </bottom>
+</BorderPane>

@@ -30,7 +30,7 @@
     </top>
     <left>
         <AnchorPane styleClass="anchorPane" maxWidth="300.0" minWidth="250">
-            <Button styleClass="buttonGuideList" layoutX="9.0" layoutY="25.0" mnemonicParsing="false" prefHeight="25.0"
+            <Button id = "english-format-id" styleClass="buttonGuideList" layoutX="9.0" layoutY="25.0" mnemonicParsing="false" prefHeight="25.0"
                     prefWidth="190.0" onAction="#showEnglishFormatView" text="english format">
                 <graphic>
                     <ImageView>
@@ -38,9 +38,8 @@
                     </ImageView>
                 </graphic>
             </Button>
-            <Button styleClass="buttonGuideList" layoutX="10.0" layoutY="60.0" mnemonicParsing="false" prefHeight="25.0"
-                    prefWidth="190.0"
-                    text="word notebook">
+            <Button id = "word-notebook-id" styleClass="buttonGuideList" layoutX="10.0" layoutY="60.0" mnemonicParsing="false" prefHeight="25.0"
+                    prefWidth="190.0" onAction="#showEnglishFormatView" text="word notebook">
                 <graphic>
                     <ImageView>
                         <Image url="/image/export.png"/>

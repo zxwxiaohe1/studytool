@@ -24,10 +24,6 @@ public class ConstantUtil {
      */
     public static final String FILE_TEMPLATE_HTML_NAME = "format/word.htm";
     /**
-     * word文件模板路径
-     */
-    public static final String FILE_TEMPLATE_NAME = "article.doc";
-    /**
      * 生成html文件路径
      */
     public static final String FILE_DIR_HTML = "/techmate/doc/";
