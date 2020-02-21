@@ -2,7 +2,7 @@
     -fx-background-color: #EEF8F8;
     -fx-background-radius: 0em;
     -fx-border-color: #3AEAE4;
-    -fx-border-style: dotted solid double;
+    -fx-border-style: dashed;
 }
 .button:hover {
     -fx-background-color: #fff;
@@ -41,6 +41,5 @@
     -fx-font-size:14;
 }
 .hintLabel {
-    -fx-font-size:10;
-    -fx-text-fill: red;
+    -fx-font-size:12;
 }

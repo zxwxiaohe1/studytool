@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -76,6 +77,7 @@ public class EnglishFormatController implements Initializable {
     @FXML
     private void convertCommit(ActionEvent event) {
         if (StringUtils.isBlank(textName.getText())) {
+            selectFileDialog.setTextFill(Paint.valueOf("red"));
             selectFileDialog.setText("please select file first ! ");
             return;
         }

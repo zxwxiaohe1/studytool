@@ -1,0 +1,16 @@
+.button {
+    -fx-background-color: #EEF8F8;
+    -fx-background-radius: 0em;
+    -fx-border-color: #3AEAE4;
+    /*-fx-border-style: dashed;*/
+}
+.button:hover {
+    -fx-background-color: #fff;
+}
+
+.button:pressed {
+    -fx-background-color: #fff;
+}
+.hintLabel {
+    -fx-font-size: 12;
+}

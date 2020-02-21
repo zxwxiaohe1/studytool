@@ -6,23 +6,79 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.AnchorPane?>
 <BorderPane fx:id="addWordPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
             prefHeight="400.0"
-            prefWidth="800.0" stylesheets="@../css/addWord.css" xmlns="http://javafx.com/javafx/8.0.141"
+            prefWidth="800.0" stylesheets="@../css/format.css" xmlns="http://javafx.com/javafx/8.0.141"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.study.en.controller.AddWordController">
     <center>
-      <Pane>
-          <HBox layoutX="102.0" layoutY="190.0">
-              <Label prefHeight="20.0" styleClass="guideLabel" text="Export doc Name: "/>
-              <TextField minHeight="27.0" minWidth="300.0" fx:id="docName" editable="true"></TextField>
-          </HBox>
-      </Pane>
+        <Pane>
+            <HBox layoutX="80.0" layoutY="50.0" spacing="10.0">
+                <Label prefHeight="20.0" text="Article:"/>
+                <TextField minHeight="27.0" minWidth="300.0" fx:id="articleTitle"/>
+                <Button maxWidth="110.0" minWidth="110.0" minHeight="25.0" alignment="BASELINE_LEFT" text="content"
+                        onAction="#articleButtonAction">
+                    <graphic>
+                        <ImageView>
+                            <Image url="/image/export.png"/>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </HBox>
+            <HBox layoutX="145.0" layoutY="80.0">
+                <Label prefHeight="20.0" styleClass="hintLabel" fx:id="articleDialog"/>
+            </HBox>
+            <HBox layoutX="142.0" layoutY="105.0" prefHeight="-1.0" prefWidth="-1.0" spacing="30.0">
+                <children>
+                    <RadioButton text="word" selected="true" mnemonicParsing="false">
+                        <toggleGroup>
+                            <ToggleGroup fx:id="enTypeGroup"/>
+                        </toggleGroup>
+                    </RadioButton>
+                    <RadioButton text="sentence" toggleGroup="$enTypeGroup"></RadioButton>
+                    <RadioButton text="phrase" toggleGroup="$enTypeGroup"></RadioButton>
+                </children>
+            </HBox>
+            <HBox layoutX="80.0" layoutY="155.0" spacing="10.0">
+                <Label prefHeight="30.0" styleClass="guideLabel" text="Target:"/>
+                <TextField minHeight="27.0" minWidth="300.0" fx:id="targetId" editable="true"></TextField>
+                <Button maxWidth="110.0" minWidth="110.0" minHeight="25.0" text="translate" alignment="BASELINE_LEFT"
+                        onAction="#articleButtonAction">
+                    <graphic>
+                        <ImageView>
+                            <Image url="/image/export.png"/>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </HBox>
+            <HBox layoutX="80.0" layoutY="230.0" spacing="15.0">
+                <Label prefHeight="30.0" styleClass="guideLabel" text="Mean:"/>
+                <TextArea minHeight="27.0" minWidth="425.0" maxWidth="425.0" fx:id="meanId" editable="true"/>
+            </HBox>
+            <Button layoutX="138.0" layoutY="465.0" maxWidth="100.0" minWidth="100.0" minHeight="25.0" text="commit"
+                    alignment="BASELINE_LEFT" onAction="#articleButtonAction">
+                <graphic>
+                    <ImageView>
+                        <Image url="/image/export.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <VBox layoutX="620" layoutY="40" minWidth="250.0" minHeight="200.0" spacing="10.0">
+                <HBox minWidth="250.0" maxWidth="250" minHeight="200.0" maxHeight="200"
+                      style="-fx-border-style:dashed;-fx-border-color: #C8C8C8">
+                    <Label style=" -fx-font-size:14;-fx-padding: 5;-fx-text-fill: #497376"/>
+                    <Label style=" -fx-padding: 5;-fx-text-fill: #497376" fx:id="articleTitleLabel"/>
+                    <Label style=" -fx-padding: 5;-fx-text-fill: #497376" fx:id="articleContentLabel"/>
+                </HBox>
+                <HBox minWidth="250.0" maxWidth="250.0" minHeight="200.0" maxHeight="200.0"
+                      style="-fx-border-style:dashed;-fx-border-color: #C8C8C8">
+                    <Label style=" -fx-font-size:14;-fx-padding: 5;-fx-text-fill: #497376"/>
+                    <Label style=" -fx-padding: 5;-fx-text-fill: #497376" fx:id="transactionTitleLabel"/>
+                    <Label style=" -fx-padding: 5;-fx-text-fill: #497376" fx:id="transactionContentLabel"/>
+                </HBox>
+            </VBox>
+        </Pane>
     </center>
-    <right>
-        <Button text="right"></Button>
-    </right>
-    <bottom>
-        <Button text="bottom"></Button>
-    </bottom>
 </BorderPane>

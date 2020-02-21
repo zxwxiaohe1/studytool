@@ -27,7 +27,7 @@
         <HBox layoutX="175.0" layoutY="80.0">
             <Label fx:id="selectFileDialog" styleClass="hintLabel"/>
         </HBox>
-        <HBox layoutX="140.0" layoutY="120.0" prefHeight="-1.0" prefWidth="-1.0" spacing="100.0">
+        <HBox layoutX="120.0" layoutY="120.0" prefHeight="-1.0" prefWidth="-1.0" spacing="100.0">
             <children>
                 <RadioButton text="word" selected="true" mnemonicParsing="false">
                     <toggleGroup>

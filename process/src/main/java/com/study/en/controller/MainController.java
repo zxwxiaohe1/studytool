@@ -16,13 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 /**
- *
+ * @author heyong
  */
 @Controller
 public class MainController {
 
-    @Autowired
-    private ArticleService articleService;
     @Autowired
     public MainView mainView;
     @Autowired
@@ -31,6 +29,8 @@ public class MainController {
     public EnglishFormatView englishFormatView;
     @FXML
     public Pane dynamicPane;
+    @Autowired
+    private ArticleService articleService;
 
 
     public void showEnglishFormatView(final Event e) {
