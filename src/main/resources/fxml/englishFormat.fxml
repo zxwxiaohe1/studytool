@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
-<?import javafx.scene.Group?>
+<?import javafx.scene.layout.VBox?>
 <Pane fx:id="englishFormatPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
       prefHeight="400.0"
       prefWidth="600.0" stylesheets="@../css/format.css" xmlns="http://javafx.com/javafx/8.0.141"
@@ -14,7 +14,7 @@
 
     <children>
         <HBox fx:id="selectTextFile" layoutX="100.0" layoutY="50.0">
-            <Label prefHeight="20.0" text="document: "/>
+            <Label styleClass="guideLabel" prefHeight="25.0" text="document: "/>
             <TextField minHeight="27.0" minWidth="300.0" fx:id="textName" editable="false"></TextField>
             <Button minHeight="25.0" text="select" onAction="#handleLoadClicked">
                 <graphic>
@@ -24,14 +24,38 @@
                 </graphic>
             </Button>
         </HBox>
-        <HBox fx:id="radioGroup" layoutX="100.0" layoutY="120.0">
-            <Group>
-                <RadioButton layoutX="20.0" layoutY="5" text="word" selected="true"
-                             onAction="#selectRadio"></RadioButton>
-                <RadioButton layoutX="150.0" layoutY="5" text="sentence" onAction="#selectRadio"></RadioButton>
-                <RadioButton layoutX="300.0" layoutY="5" text="phrase" onAction="#selectRadio"></RadioButton>
-            </Group>
-
+        <HBox layoutX="175.0" layoutY="80.0">
+            <Label fx:id="selectFileDialog" styleClass="hintLabel"/>
         </HBox>
+        <HBox layoutX="140.0" layoutY="120.0" prefHeight="-1.0" prefWidth="-1.0" spacing="100.0">
+            <children>
+                <RadioButton text="word" selected="true" mnemonicParsing="false">
+                    <toggleGroup>
+                        <ToggleGroup fx:id="enTypeGroup"/>
+                    </toggleGroup>
+                </RadioButton>
+                <RadioButton text="sentence" toggleGroup="$enTypeGroup"></RadioButton>
+                <RadioButton text="phrase" toggleGroup="$enTypeGroup"></RadioButton>
+            </children>
+        </HBox>
+        <HBox layoutX="102.0" layoutY="190.0">
+            <Label prefHeight="20.0" styleClass="guideLabel" text="Export doc Name: "/>
+            <TextField minHeight="27.0" minWidth="300.0" fx:id="docName" editable="true"></TextField>
+        </HBox>
+        <HBox layoutX="102.0" layoutY="260.0">
+            <Button minHeight="25.0" text="select" onAction="#convertCommit">
+                <graphic>
+                    <ImageView>
+                        <Image url="/image/export-datasource@16.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
+        </HBox>
+        <VBox minWidth="250.0" minHeight="300.0" layoutX="590" layoutY="50.0" style="-fx-border-style:dashed;-fx-border-color: #C8C8C8">
+            <Label style=" -fx-font-size:14;-fx-padding: 5;-fx-text-fill: #497376">reminder: example word format</Label>
+            <Label style=" -fx-padding: 5;-fx-text-fill: #497376" fx:id="wordTemplate"></Label>
+            <Label style=" -fx-padding: 5;-fx-text-fill: #497376" fx:id="sentenceTemplate"></Label>
+            <Label style=" -fx-padding: 5;-fx-text-fill: #497376" fx:id="phraseTemplate"></Label>
+        </VBox>
     </children>
 </Pane>

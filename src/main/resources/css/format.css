@@ -26,10 +26,6 @@
     -fx-padding: 10 0 10 0;
 }
 
-.myColumn {
-    -fx-alignment: CENTER;
-}
-
 #tableFindLabel {
     -fx-background-color: gray;
     -fx-font-size: 16;
@@ -40,4 +36,11 @@
     -fx-padding: 0 0 0 0;
     -fx-border-radius: 2;
     /*-fx-background-color: #E8E8E8;*/
+}
+.guideLabel {
+    -fx-font-size:14;
+}
+.hintLabel {
+    -fx-font-size:10;
+    -fx-text-fill: red;
 }
