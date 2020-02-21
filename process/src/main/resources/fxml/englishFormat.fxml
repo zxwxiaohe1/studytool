@@ -42,8 +42,8 @@
             <Label prefHeight="20.0" styleClass="guideLabel" text="Export doc Name: "/>
             <TextField minHeight="27.0" minWidth="300.0" fx:id="docName" editable="true"></TextField>
         </HBox>
-        <HBox layoutX="102.0" layoutY="260.0">
-            <Button minHeight="25.0" text="select" onAction="#convertCommit">
+        <HBox layoutX="102.0" layoutY="300.0">
+            <Button minHeight="25.0" text="convert" onAction="#convertCommit">
                 <graphic>
                     <ImageView>
                         <Image url="/image/export-datasource@16.png"/>
