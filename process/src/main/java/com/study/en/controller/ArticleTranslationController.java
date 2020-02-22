@@ -2,6 +2,7 @@ package com.study.en.controller;
 
 import com.study.en.domain.service.ArticleService;
 import com.study.en.utils.DialogUtils;
+import com.study.en.utils.IdGen;
 import com.study.en.view.ArticleTranslationView;
 import de.felixroske.jfxsupport.FXMLController;
 import javafx.beans.value.ChangeListener;
@@ -44,7 +45,10 @@ public class ArticleTranslationController implements Initializable {
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if (newValue.booleanValue()) {
                     if (!ObjectUtils.isEmpty(articleTranslationView) && !ObjectUtils.isEmpty(articleTranslationView.getEnglishArticle())) {
-                        articleTranslation.setText(articleTranslationView.getEnglishArticle().getMean());
+                        if (articleTranslationView.getFrameFirstOpen()) {
+                            articleTranslation.setText(articleTranslationView.getEnglishArticle().getMean());
+                            articleTranslationView.setFrameFirstOpen(false);
+                        }
                     }
                 }
             }
@@ -53,6 +57,7 @@ public class ArticleTranslationController implements Initializable {
 
     @FXML
     public void commitArticleTranslation(Event event) throws IOException {
+        articleTranslationView.getEnglishArticle().setId(IdGen.uuid(articleTranslationView.getEnglishArticle().getTitle()));
         articleTranslationView.getEnglishArticle().setMean(articleTranslation.getText());
         articleService.saveOrUpdate(articleTranslationView.getEnglishArticle());
         DialogUtils.hintDialog((Stage) articleTranslationPane.getScene().getWindow(),"hint","commit sucess !");

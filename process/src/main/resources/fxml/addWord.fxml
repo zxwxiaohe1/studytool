@@ -53,9 +53,15 @@
                     </graphic>
                 </Button>
             </HBox>
+            <HBox layoutX="145.0" layoutY="185.0">
+                <Label prefHeight="20.0" styleClass="hintLabel" fx:id="wordDialog"/>
+            </HBox>
             <HBox layoutX="80.0" layoutY="230.0" spacing="15.0">
                 <Label prefHeight="30.0" styleClass="guideLabel" text="Mean:"/>
                 <TextArea minHeight="27.0" minWidth="425.0" maxWidth="425.0" fx:id="meanId" editable="true"/>
+            </HBox>
+            <HBox layoutX="145.0" layoutY="435.0">
+                <Label prefHeight="20.0" styleClass="hintLabel" fx:id="meanDialog"/>
             </HBox>
             <Button layoutX="138.0" layoutY="465.0" maxWidth="100.0" minWidth="100.0" minHeight="25.0" text="commit"
                     alignment="BASELINE_LEFT" onAction="#articleButtonAction">
@@ -68,15 +74,15 @@
             <VBox layoutX="620" layoutY="40" minWidth="250.0" minHeight="200.0" spacing="10.0">
                 <VBox minWidth="250.0" maxWidth="250" minHeight="200.0" maxHeight="200"
                       style="-fx-border-style:dashed;-fx-border-color: #C8C8C8">
-                    <Label style=" -fx-font-size:14;-fx-padding: 5;-fx-text-fill: #497376"/>
-                    <Label style=" -fx-padding: 5;-fx-text-fill: #497376" fx:id="articleTitleLabel"/>
-                    <Label style=" -fx-padding: 5;-fx-text-fill: #497376" fx:id="articleContentLabel"/>
+                    <Label style=" -fx-font-size:14;-fx-padding: 5;-fx-text-fill: #497376" wrapText="true"/>
+                    <Label style=" -fx-padding: 5;-fx-text-fill: #497376" fx:id="articleTitleLabel" wrapText="true"/>
+                    <Label style=" -fx-padding: 5;-fx-text-fill: #497376" fx:id="articleContentLabel" wrapText="true"/>
                 </VBox>
                 <VBox minWidth="250.0" maxWidth="250.0" minHeight="200.0" maxHeight="200.0"
                       style="-fx-border-style:dashed;-fx-border-color: #C8C8C8">
-                    <Label style=" -fx-font-size:14;-fx-padding: 5;-fx-text-fill: #497376"/>
-                    <Label style=" -fx-padding: 5;-fx-text-fill: #497376" fx:id="transactionTitleLabel"/>
-                    <Label style=" -fx-padding: 5;-fx-text-fill: #497376" fx:id="transactionContentLabel"/>
+                    <Label style=" -fx-font-size:14;-fx-padding: 5;-fx-text-fill: #497376" wrapText="true"/>
+                    <Label style=" -fx-padding: 5;-fx-text-fill: #497376" fx:id="transactionTitleLabel" wrapText="true"/>
+                    <Label style=" -fx-padding: 5;-fx-text-fill: #497376" fx:id="transactionContentLabel" wrapText="true"/>
                 </VBox>
             </VBox>
         </Pane>

@@ -72,7 +72,7 @@ public class WordFormat {
                         }
                         if (strs != null) {
                             if (strs.length >= 1) {
-                                singleMean.setWordType(WordType.type(strs[0]));
+                                singleMean.setWordType(strs[0].trim());
                             }
                             if (strs.length >= 2) {
                                 mean = strs[1];

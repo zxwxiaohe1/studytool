@@ -15,6 +15,7 @@ import lombok.Setter;
 @FXMLView(title = "article content", value = "/fxml/articleTranslation.fxml", encoding = "utf-8")
 public class ArticleTranslationView extends AbstractFxmlView {
 
+    private Boolean frameFirstOpen;
     private EnglishArticle englishArticle;
 
 }

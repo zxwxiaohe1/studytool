@@ -1,7 +1,9 @@
 package com.study.en.support.export;
 
+import cn.hutool.extra.tokenizer.Word;
 import com.study.en.modules.vo.SingleWord;
 import com.study.en.support.ennum.WordExportType;
+import com.study.en.support.ennum.WordType;
 import com.study.en.utils.ConstantUtil;
 import com.study.en.utils.FileUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -43,7 +45,7 @@ public class ExportWord {
                             space = space + "&nbsp;";
                         }
                         if (StringUtils.isNotBlank(sw.getMeans().get(i).getWordType())) {
-                            wrtype = sw.getMeans().get(i).getWordType() + "表示";
+                            wrtype = WordType.type(sw.getMeans().get(i).getWordType()) + "表示";
                             sw.getMeans().get(i).setMean("(" + sw.getMeans().get(i).getMean() + ")" + ConstantUtil.FILE_SPERATOR_ENGLISH);
                         } else {
                             mean = sw.getMeans().get(i).getMean().replaceAll(" ", "");

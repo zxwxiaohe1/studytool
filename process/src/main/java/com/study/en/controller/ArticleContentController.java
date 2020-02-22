@@ -3,6 +3,7 @@ package com.study.en.controller;
 import com.study.en.domain.entity.EnglishArticle;
 import com.study.en.domain.service.ArticleService;
 import com.study.en.utils.DialogUtils;
+import com.study.en.utils.IdGen;
 import com.study.en.view.ArticleContentView;
 import de.felixroske.jfxsupport.FXMLController;
 import javafx.beans.value.ChangeListener;
@@ -47,7 +48,10 @@ public class ArticleContentController implements Initializable {
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if (newValue.booleanValue()) {
                     if (!ObjectUtils.isEmpty(articleContentView) && !ObjectUtils.isEmpty(articleContentView.getEnglishArticle())) {
-                        contentTextArea.setText(articleContentView.getEnglishArticle().getContent());
+                        if (articleContentView.getFrameFirstOpen()) {
+                            contentTextArea.setText(articleContentView.getEnglishArticle().getContent());
+                            articleContentView.setFrameFirstOpen(false);
+                        }
                     }
                 }
             }
@@ -56,8 +60,9 @@ public class ArticleContentController implements Initializable {
 
     @FXML
     public void commitArticleContent(Event event) throws IOException {
+        articleContentView.getEnglishArticle().setId(IdGen.uuid(articleContentView.getEnglishArticle().getTitle()));
         articleContentView.getEnglishArticle().setContent(contentTextArea.getText());
         articleService.saveOrUpdate(articleContentView.getEnglishArticle());
-        DialogUtils.hintDialog((Stage) articleContentPane.getScene().getWindow(),"hint","commit sucess !");
+        DialogUtils.hintDialog((Stage) articleContentPane.getScene().getWindow(), "hint", "commit sucess !");
     }
 }

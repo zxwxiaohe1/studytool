@@ -34,7 +34,7 @@ public class IdGen {
      * @throws
      */
     public static String uuid(String target) {
-        return UUID.nameUUIDFromBytes(target.replaceAll(" +", "").getBytes()).toString();
+        return UUID.nameUUIDFromBytes(target.replaceAll(" +", "").toLowerCase().getBytes()).toString();
     }
 
 

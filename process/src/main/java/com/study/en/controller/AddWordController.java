@@ -52,6 +52,10 @@ public class AddWordController implements Initializable {
     public ToggleGroup enTypeGroup;
     @FXML
     public Label articleDialog;
+    @FXML
+    public Label wordDialog;
+    @FXML
+    public Label meanDialog;
     @Autowired
     private WordService wordService;
     @Autowired
@@ -103,6 +107,10 @@ public class AddWordController implements Initializable {
             }
         } else {
             articleDialog.setText(null);
+            articleTitleLabel.setText(null);
+            articleContentLabel.setText(null);
+            transactionTitleLabel.setText(null);
+            transactionContentLabel.setText(null);
         }
     }
 
@@ -162,6 +170,17 @@ public class AddWordController implements Initializable {
                     } else {
                     }
                     DialogUtils.hintDialog((Stage) addWordPane.getScene().getWindow(), "hint", "commit sucess !");
+                    wordDialog.setText(null);
+                    meanDialog.setText(null);
+                } else {
+                    if (StringUtils.isBlank(targetId.getText())) {
+                        wordDialog.setTextFill(Paint.valueOf("red"));
+                        wordDialog.setText("please enter the word !");
+                    }
+                    if (StringUtils.isBlank(meanId.getText())) {
+                        meanDialog.setTextFill(Paint.valueOf("red"));
+                        meanDialog.setText("please enter the mean !");
+                    }
                 }
             }
         }
@@ -175,7 +194,7 @@ public class AddWordController implements Initializable {
             articleDialog.setText("please enter the name of the article !");
             return;
         } else {
-            EnglishArticle article = articleService.getById(articleTitle.getText().trim());
+            EnglishArticle article = articleService.getById(IdGen.uuid(articleTitle.getText()));
             if (ObjectUtils.isEmpty(article)) {
                 article = new EnglishArticle();
                 article.setTitle(articleTitle.getText());
@@ -183,9 +202,11 @@ public class AddWordController implements Initializable {
             if (event.getSource() instanceof Button) {
                 if ("content".equals(((Button) event.getSource()).getText())) {
                     articleContentView.setEnglishArticle(article);
+                    articleContentView.setFrameFirstOpen(true);
                     StudyApplication.showView(articleContentView, Modality.NONE, "article content");
                 } else if ("translate".equals(((Button) event.getSource()).getText())) {
                     articleTranslationView.setEnglishArticle(article);
+                    articleTranslationView.setFrameFirstOpen(true);
                     StudyApplication.showView(articleTranslationView, Modality.NONE, "article translation");
                 }
             }

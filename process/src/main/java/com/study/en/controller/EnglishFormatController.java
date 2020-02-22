@@ -1,11 +1,15 @@
 package com.study.en.controller;
 
+import com.study.en.domain.entity.EnglishWord;
+import com.study.en.domain.service.WordService;
 import com.study.en.modules.service.WordFormat;
 import com.study.en.modules.vo.SingleWord;
 import com.study.en.support.ennum.WordExportType;
 import com.study.en.support.export.ExportWord;
 import com.study.en.utils.ConstantUtil;
 import com.study.en.utils.DialogUtils;
+import com.study.en.utils.IdGen;
+import com.study.en.utils.JacksonUtil;
 import de.felixroske.jfxsupport.FXMLController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,7 +22,9 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ObjectUtils;
 
 import java.io.File;
 import java.net.URL;
@@ -49,6 +55,8 @@ public class EnglishFormatController implements Initializable {
     public Label phraseTemplate;
     @FXML
     private ToggleGroup enTypeGroup;
+    @Autowired
+    private WordService wordService;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -93,16 +101,35 @@ public class EnglishFormatController implements Initializable {
             List<String> sortw = new ArrayList<>(appleMap.keySet());
             Collections.sort(sortw);
             List<SingleWord> words = new ArrayList<>();
-            for (String w : sortw) {
-                words.add(appleMap.get(w));
+            List<EnglishWord> enWords = new ArrayList<>();
+            List<EnglishWord> enOldWords = wordService.list();
+            Set<String> oldWords = new HashSet<>();
+            if (!ObjectUtils.isEmpty(enOldWords)) {
+                oldWords = enOldWords.stream().map(p -> p.getWord()).collect(Collectors.toSet());
             }
+            for (String w : sortw) {
+                SingleWord singleWord = appleMap.get(w);
+                if (ObjectUtils.isEmpty(singleWord)) {
+                    continue;
+                }
+                EnglishWord enWord = new EnglishWord();
+                enWord.setId(IdGen.uuid(singleWord.getWord()));
+                enWord.setWord(singleWord.getWord());
+                enWord.setMean(JacksonUtil.bean2Json(singleWord.getMeans()));
+                enWord.setArticleId(IdGen.uuid(ConstantUtil.ARTICLE_EMPTY_TITLE));
+                if (!oldWords.contains(enWord.getWord())) {
+                    enWords.add(enWord);
+                }
+                words.add(singleWord);
+            }
+            wordService.saveBatch(enWords);
             exportWord.exec(words, WordExportType.word.name(), docName.getText().trim());
         } else if (WordExportType.sentence.name().equals(selected)) {
             List<SingleWord> words = wordFormat.sentenceFormat(textName.getText());
             exportWord.exec(words, WordExportType.sentence.name(), docName.getText().trim());
         } else {
             List<SingleWord> words = wordFormat.phraseFormat(textName.getText());
-            exportWord.exec(words, WordExportType.phrase.name(),docName.getText().trim());
+            exportWord.exec(words, WordExportType.phrase.name(), docName.getText().trim());
         }
         DialogUtils.hintDialog((Stage) englishFormatPane.getScene().getWindow(), "hint", "Format Success!");
     }
