@@ -19,7 +19,7 @@
                 <Label prefHeight="20.0" text="Article:"/>
                 <TextField minHeight="27.0" minWidth="300.0" fx:id="articleTitle"/>
                 <Button maxWidth="110.0" minWidth="110.0" minHeight="25.0" alignment="BASELINE_LEFT" text="content"
-                        onAction="#articleButtonAction">
+                        onAction="#showArticleContentWindow">
                     <graphic>
                         <ImageView>
                             <Image url="/image/export.png"/>
@@ -45,7 +45,7 @@
                 <Label prefHeight="30.0" styleClass="guideLabel" text="Target:"/>
                 <TextField minHeight="27.0" minWidth="300.0" fx:id="targetId" editable="true"></TextField>
                 <Button maxWidth="110.0" minWidth="110.0" minHeight="25.0" text="translate" alignment="BASELINE_LEFT"
-                        onAction="#articleButtonAction">
+                        onAction="#showArticleContentWindow">
                     <graphic>
                         <ImageView>
                             <Image url="/image/export.png"/>
@@ -66,18 +66,18 @@
                 </graphic>
             </Button>
             <VBox layoutX="620" layoutY="40" minWidth="250.0" minHeight="200.0" spacing="10.0">
-                <HBox minWidth="250.0" maxWidth="250" minHeight="200.0" maxHeight="200"
+                <VBox minWidth="250.0" maxWidth="250" minHeight="200.0" maxHeight="200"
                       style="-fx-border-style:dashed;-fx-border-color: #C8C8C8">
                     <Label style=" -fx-font-size:14;-fx-padding: 5;-fx-text-fill: #497376"/>
                     <Label style=" -fx-padding: 5;-fx-text-fill: #497376" fx:id="articleTitleLabel"/>
                     <Label style=" -fx-padding: 5;-fx-text-fill: #497376" fx:id="articleContentLabel"/>
-                </HBox>
-                <HBox minWidth="250.0" maxWidth="250.0" minHeight="200.0" maxHeight="200.0"
+                </VBox>
+                <VBox minWidth="250.0" maxWidth="250.0" minHeight="200.0" maxHeight="200.0"
                       style="-fx-border-style:dashed;-fx-border-color: #C8C8C8">
                     <Label style=" -fx-font-size:14;-fx-padding: 5;-fx-text-fill: #497376"/>
                     <Label style=" -fx-padding: 5;-fx-text-fill: #497376" fx:id="transactionTitleLabel"/>
                     <Label style=" -fx-padding: 5;-fx-text-fill: #497376" fx:id="transactionContentLabel"/>
-                </HBox>
+                </VBox>
             </VBox>
         </Pane>
     </center>

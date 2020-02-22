@@ -10,7 +10,7 @@ import lombok.Setter;
  */
 @Setter
 @Getter
-@FXMLView
+@FXMLView(value = "/fxml/main.fxml", encoding = "utf-8")
 public class MainView extends AbstractFxmlView {
 
     private final String englishFormatId = "english-format-id";

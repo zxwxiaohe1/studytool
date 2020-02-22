@@ -6,6 +6,7 @@ import com.study.en.support.ennum.WordExportType;
 import com.study.en.support.export.ExportWord;
 import com.study.en.utils.ConstantUtil;
 import com.study.en.utils.DialogUtils;
+import de.felixroske.jfxsupport.FXMLController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -24,7 +25,10 @@ import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Controller
+/**
+ * @author heyong
+ */
+@FXMLController
 public class EnglishFormatController implements Initializable {
 
     @FXML

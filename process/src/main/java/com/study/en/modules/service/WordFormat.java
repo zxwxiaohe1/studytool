@@ -1,5 +1,6 @@
 package com.study.en.modules.service;
 
+import com.study.en.modules.vo.Mean;
 import com.study.en.modules.vo.SingleWord;
 import com.study.en.support.ennum.WordType;
 import com.study.en.utils.ConstantUtil;
@@ -33,24 +34,24 @@ public class WordFormat {
             String mean = "";
             SingleWord singleWord = new SingleWord();
             List<SingleWord> singleWords = new ArrayList<SingleWord>();
-            List<SingleWord.Mean> means = new ArrayList<SingleWord.Mean>();
-            SingleWord.Mean singleMean = singleWord.new Mean();
+            List<Mean> means = new ArrayList<Mean>();
+            Mean singleMean = new Mean();
             while ((line = read.readLine()) != null) {
                 if (StringUtil.isNotBlank(line)) {
                     line = StringUtil.removeIndexSpace(line);
-                    singleMean = singleWord.new Mean();
+                    singleMean = new Mean();
                     if (line.contains(ConstantUtil.FILE_COLON_CHINESE)) {
                         strs = line.split(ConstantUtil.FILE_COLON_CHINESE);
                         singleWord.setMeans(means);
                         singleWords.add(singleWord);
                         singleWord = new SingleWord();
-                        means = new ArrayList<SingleWord.Mean>();
+                        means = new ArrayList<Mean>();
                     } else if (line.contains(ConstantUtil.FILE_COLON_ENGLISH)) {
                         strs = line.split(ConstantUtil.FILE_COLON_ENGLISH);
                         singleWord.setMeans(means);
                         singleWords.add(singleWord);
                         singleWord = new SingleWord();
-                        means = new ArrayList<SingleWord.Mean>();
+                        means = new ArrayList<Mean>();
                     } else {
                         mean = line;
                     }
@@ -115,8 +116,8 @@ public class WordFormat {
             String temp = "";
             SingleWord singleWord = new SingleWord();
             List<SingleWord> singleWords = new ArrayList<SingleWord>();
-            List<SingleWord.Mean> means = new ArrayList<SingleWord.Mean>();
-            SingleWord.Mean singleMean = singleWord.new Mean();
+            List<Mean> means = new ArrayList<Mean>();
+            Mean singleMean = new Mean();
             Integer index = -1;
             Boolean isMean = false;
             Set<String> phraseSingle = new HashSet<String>();
@@ -153,11 +154,11 @@ public class WordFormat {
                             singleWords.add(singleWord);
                             singleWord = new SingleWord();
                             if (isMean) {
-                                singleMean = singleWord.new Mean();
+                                singleMean = new Mean();
                             }
                             singleWord.setWord(singleWord.getWord() + line.substring(0, index).trim().toLowerCase());
                             singleMean.setMean(singleMean.getMean() + line.substring(index).trim());
-                            means = new ArrayList<SingleWord.Mean>();
+                            means = new ArrayList<Mean>();
                             means.add(singleMean);
 
                         }
@@ -166,8 +167,8 @@ public class WordFormat {
                             singleWord.setMeans(means);
                             singleWords.add(singleWord);
                             singleWord = new SingleWord();
-                            singleMean = singleWord.new Mean();
-                            means = new ArrayList<SingleWord.Mean>();
+                            singleMean = new Mean();
+                            means = new ArrayList<Mean>();
                         }
                         singleWord.setWord(singleWord.getWord() + line.toLowerCase());
                         isMean = false;
@@ -196,8 +197,8 @@ public class WordFormat {
             String temp = "";
             SingleWord singleWord = new SingleWord();
             List<SingleWord> singleWords = new ArrayList<SingleWord>();
-            List<SingleWord.Mean> means = new ArrayList<SingleWord.Mean>();
-            SingleWord.Mean singleMean = singleWord.new Mean();
+            List<Mean> means = new ArrayList<Mean>();
+            Mean singleMean = new Mean();
             Integer index = -1;
             Boolean isMean = false;
             Set<String> phraseSingle = new HashSet<String>();
@@ -234,11 +235,11 @@ public class WordFormat {
                             singleWords.add(singleWord);
                             singleWord = new SingleWord();
                             if (isMean) {
-                                singleMean = singleWord.new Mean();
+                                singleMean = new Mean();
                             }
                             singleWord.setWord(singleWord.getWord() + line.substring(0, index).trim().toLowerCase());
                             singleMean.setMean(singleMean.getMean() + line.substring(index).trim());
-                            means = new ArrayList<SingleWord.Mean>();
+                            means = new ArrayList<Mean>();
                             means.add(singleMean);
 
                         }
@@ -247,8 +248,8 @@ public class WordFormat {
                             singleWord.setMeans(means);
                             singleWords.add(singleWord);
                             singleWord = new SingleWord();
-                            singleMean = singleWord.new Mean();
-                            means = new ArrayList<SingleWord.Mean>();
+                            singleMean = new Mean();
+                            means = new ArrayList<Mean>();
                         }
                         singleWord.setWord(singleWord.getWord() + line.toLowerCase());
                         isMean = false;

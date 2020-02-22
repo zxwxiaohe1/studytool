@@ -1,27 +1,43 @@
 package com.study.en.controller;
 
+import com.study.en.StudyApplication;
 import com.study.en.domain.entity.EnglishArticle;
+import com.study.en.domain.entity.EnglishWord;
 import com.study.en.domain.service.ArticleService;
+import com.study.en.domain.service.WordService;
+import com.study.en.modules.vo.Mean;
+import com.study.en.support.ennum.WordExportType;
+import com.study.en.support.ennum.WordType;
+import com.study.en.utils.ConstantUtil;
+import com.study.en.utils.DialogUtils;
+import com.study.en.utils.IdGen;
+import com.study.en.utils.JacksonUtil;
+import com.study.en.view.ArticleContentView;
+import com.study.en.view.ArticleTranslationView;
+import de.felixroske.jfxsupport.FXMLController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Paint;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.util.ObjectUtils;
 
+import java.io.IOException;
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.*;
 
 /**
  * @author heyong
  */
-@Controller
+@FXMLController
 public class AddWordController implements Initializable {
 
     @FXML
@@ -37,10 +53,27 @@ public class AddWordController implements Initializable {
     @FXML
     public Label articleDialog;
     @Autowired
+    private WordService wordService;
+    @Autowired
     private ArticleService articleService;
+    @Autowired
+    private ArticleContentView articleContentView;
+    @Autowired
+    private ArticleTranslationView articleTranslationView;
+    @FXML
+    public Label articleTitleLabel;
+    @FXML
+    public Label articleContentLabel;
+    @FXML
+    public Label transactionTitleLabel;
+    @FXML
+    public Label transactionContentLabel;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        if (ObjectUtils.isEmpty(articleTitle)) {
+            return;
+        }
         articleTitle.setFocusTraversable(true);
         articleTitle.focusedProperty().addListener(new ChangeListener<Boolean>() {
 
@@ -56,31 +89,110 @@ public class AddWordController implements Initializable {
     private void focusLost() {
         EnglishArticle article = null;
         if (StringUtils.isNotBlank(articleTitle.getText())) {
-            article = articleService.getById(articleTitle.getText().trim());
+            article = articleService.getById(IdGen.uuid(articleTitle.getText()));
             if (ObjectUtils.isEmpty(article)) {
                 articleDialog.setTextFill(Paint.valueOf("red"));
                 articleDialog.setText("this article not exist !");
             } else {
                 articleDialog.setTextFill(Paint.valueOf("green"));
                 articleDialog.setText("this article already exist !");
+                articleTitleLabel.setText("原文");
+                articleContentLabel.setText(article.getContent());
+                transactionTitleLabel.setText("译文");
+                transactionContentLabel.setText(article.getMean());
             }
+        } else {
+            articleDialog.setText(null);
         }
     }
 
     @FXML
     public void articleButtonAction(ActionEvent event) {
         if (event.getSource() instanceof Button) {
-            if ("search".equals(((Button) event.getSource()).getText())) {
+            if ("commit".equals(((Button) event.getSource()).getText())) {
                 EnglishArticle article = null;
-                if (StringUtils.isNotBlank(articleTitle.getText())) {
-                    article = articleService.getById(articleTitle.getText().trim());
-                    if (ObjectUtils.isEmpty(article)) {
-                        articleDialog.setText("this article not exist !");
-                        return;
+                String selected = ((RadioButton) this.enTypeGroup.getSelectedToggle()).getText();
+                if (StringUtils.isNotBlank(targetId.getText())
+                        && StringUtils.isNotBlank(meanId.getText())) {
+                    article = articleService.getById(IdGen.uuid(articleTitle.getText()));
+                    if (WordExportType.word.name().equals(selected)) {
+                        EnglishWord word = wordService.getById(IdGen.uuid(targetId.getText()));
+                        if (ObjectUtils.isEmpty(word)) {
+                            word = new EnglishWord();
+                            word.setId(IdGen.uuid(targetId.getText()));
+                            word.setWord(targetId.getText());
+                        } else {
+
+                        }
+                        word.setMean(meanId.getText());
+                        if (!ObjectUtils.isEmpty(article)) {
+                            if (StringUtils.isNotBlank(word.getArticleId())) {
+                                word.setArticleId(word.getArticleId().replaceAll(IdGen.uuid(ConstantUtil.ARTICLE_EMPTY_TITLE), "") + "," + article.getId());
+                            } else {
+                                word.setArticleId(article.getId());
+                            }
+                        } else {
+                            if (StringUtils.isBlank(word.getArticleId())) {
+                                word.setArticleId(IdGen.uuid(ConstantUtil.ARTICLE_EMPTY_TITLE));
+                            }
+                        }
+                        StringBuilder target = new StringBuilder(meanId.getText().replaceAll(" +", ""));
+                        for (WordType w : WordType.values()) {
+                            if (target.toString().contains(w.name() + ConstantUtil.FILE_PERIOD_ENGLISH)) {
+                                target.insert(target.toString().indexOf(w.name() + ConstantUtil.FILE_PERIOD_ENGLISH), ConstantUtil.SPLIT_WORD_MEAN_CHAR);
+                            }
+                        }
+                        String[] meanStrs = target.toString().split(ConstantUtil.SPLIT_WORD_MEAN_CHAR);
+                        String[] meanSplitStrs;
+                        List<Mean> wordMeans = new ArrayList<>();
+                        for (String meanStr : meanStrs) {
+                            if (StringUtils.isNotBlank(meanStr)) {
+                                Mean mean = new Mean();
+                                meanSplitStrs = meanStr.trim().split("\\" + ConstantUtil.FILE_PERIOD_ENGLISH);
+                                if (meanSplitStrs.length >= 2) {
+                                    mean.setWordType(meanSplitStrs[0]);
+                                    mean.setMean(meanSplitStrs[1]);
+                                    wordMeans.add(mean);
+                                }
+                            }
+                        }
+                        word.setMean(JacksonUtil.bean2Json(wordMeans));
+                        wordService.saveOrUpdate(word);
+                    } else if (WordExportType.sentence.name().equals(selected)) {
+                    } else {
                     }
-                    articleDialog.setText("");
+                    DialogUtils.hintDialog((Stage) addWordPane.getScene().getWindow(), "hint", "commit sucess !");
                 }
             }
         }
     }
+
+    @FXML
+    public void showArticleContentWindow(Event event) throws IOException {
+
+        if (StringUtils.isBlank(articleTitle.getText())) {
+            articleDialog.setTextFill(Paint.valueOf("red"));
+            articleDialog.setText("please enter the name of the article !");
+            return;
+        } else {
+            EnglishArticle article = articleService.getById(articleTitle.getText().trim());
+            if (ObjectUtils.isEmpty(article)) {
+                article = new EnglishArticle();
+                article.setTitle(articleTitle.getText());
+            }
+            if (event.getSource() instanceof Button) {
+                if ("content".equals(((Button) event.getSource()).getText())) {
+                    articleContentView.setEnglishArticle(article);
+                    StudyApplication.showView(articleContentView, Modality.NONE, "article content");
+                } else if ("translate".equals(((Button) event.getSource()).getText())) {
+                    articleTranslationView.setEnglishArticle(article);
+                    StudyApplication.showView(articleTranslationView, Modality.NONE, "article translation");
+                }
+            }
+
+        }
+
+    }
+
+
 }

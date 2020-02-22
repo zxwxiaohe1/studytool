@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.en.domain.mapper.EnglishWordMapper">
+    <resultMap id="BaseResultMap" type="com.study.en.domain.entity.EnglishWord">
+        <id column="id" property="id"/>
+        <result column="word" property="word"/>
+        <result column="mean" property="mean"/>
+        <result column="article_id" property="articleId"/>
+        <result column="remark" property="remark"/>
+    </resultMap>
+</mapper>

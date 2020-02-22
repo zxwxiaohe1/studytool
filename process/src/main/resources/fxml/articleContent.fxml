@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<Pane fx:id="articleContentPane" maxHeight="500.0" maxWidth="810.0" minHeight="500.0" minWidth="810.0" prefHeight="477.0"
+      prefWidth="280.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.study.en.controller.ArticleContentController">
+    <VBox layoutX="10.0" layoutY="20.0" minWidth="800.0" maxWidth="800.0" minHeight="400.0" maxHeight="400.0"
+          spacing="15.0">
+        <TextArea minHeight="400.0" maxHeight="400.0" minWidth="800.0" maxWidth="800.0" fx:id="contentTextArea" editable="true"/>
+        <Button minHeight="25.0" text="commit" onAction="#commitArticleContent">
+            <graphic>
+                <ImageView>
+                    <Image url="/image/export.png"/>
+                </ImageView>
+            </graphic>
+        </Button>
+    </VBox>
+</Pane>

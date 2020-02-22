@@ -5,8 +5,10 @@ import com.study.en.utils.ConstantUtil;
 import com.study.en.view.AddWordView;
 import com.study.en.view.EnglishFormatView;
 import com.study.en.view.MainView;
+import de.felixroske.jfxsupport.FXMLController;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
@@ -15,11 +17,14 @@ import javafx.scene.layout.Pane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 /**
  * @author heyong
  */
-@Controller
-public class MainController {
+@FXMLController
+public class MainController implements Initializable {
 
     @Autowired
     public MainView mainView;
@@ -29,9 +34,10 @@ public class MainController {
     public EnglishFormatView englishFormatView;
     @FXML
     public Pane dynamicPane;
-    @Autowired
-    private ArticleService articleService;
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+    }
 
     public void showEnglishFormatView(final Event e) {
         if (e.getSource() instanceof Button) {

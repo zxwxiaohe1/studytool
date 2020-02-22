@@ -1,13 +1,15 @@
 package com.study.en;
 
+import de.felixroske.jfxsupport.AbstractFxmlView;
 import de.felixroske.jfxsupport.AbstractJavaFxApplicationSupport;
-import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,21 +21,28 @@ import org.springframework.context.ConfigurableApplicationContext;
  */
 @Slf4j
 @SpringBootApplication
-public class StudyApplication  extends AbstractJavaFxApplicationSupport {
+public class StudyApplication extends AbstractJavaFxApplicationSupport {
 
-    private FXMLLoader fxmlLoader;
+    public FXMLLoader fxmlLoader;
 
     public static void main(String[] args) {
         launch(args);
     }
+
     @Override
     public void init() {
+        try {
+            super.init();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         ConfigurableApplicationContext run = SpringApplication.run(StudyApplication.class);
         fxmlLoader = new FXMLLoader();
         fxmlLoader.setControllerFactory(run::getBean);
         HostServices hostServices = getHostServices();
         run.getBeanFactory().registerSingleton("hostServices", hostServices);
     }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         fxmlLoader.setLocation(getClass().getResource("/fxml/main.fxml"));
@@ -44,7 +53,28 @@ public class StudyApplication  extends AbstractJavaFxApplicationSupport {
         primaryStage.getIcons().add(new Image("/image/icon.png"));
         primaryStage.setWidth(1200);
         primaryStage.setHeight(700);
+        primaryStage.setResizable(false);
         primaryStage.setTitle("study tool");
         primaryStage.show();
+    }
+
+    public static void showView(AbstractFxmlView view, Modality mode, String title) {
+        Stage newStage = new Stage();
+        Scene newScene;
+        if (view.getView().getScene() != null) {
+            newScene = view.getView().getScene();
+        } else {
+            newScene = new Scene(view.getView());
+        }
+        view.getView().layout();
+        newStage.requestFocus();
+        newStage.getIcons().add(new Image("/image/icon.png"));
+        newStage.setScene(newScene);
+        newStage.initModality(mode);
+        newStage.initOwner(getStage());
+        newStage.setResizable(false);
+        newStage.setTitle(title);
+        newStage.initStyle(StageStyle.DECORATED);
+        newStage.show();
     }
 }
