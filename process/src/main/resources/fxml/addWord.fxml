@@ -74,13 +74,11 @@
             <VBox layoutX="620" layoutY="40" minWidth="250.0" minHeight="200.0" spacing="10.0">
                 <VBox minWidth="250.0" maxWidth="250" minHeight="200.0" maxHeight="200"
                       style="-fx-border-style:dashed;-fx-border-color: #C8C8C8">
-                    <Label style=" -fx-font-size:14;-fx-padding: 5;-fx-text-fill: #497376" wrapText="true"/>
                     <Label style=" -fx-padding: 5;-fx-text-fill: #497376" fx:id="articleTitleLabel" wrapText="true"/>
                     <Label style=" -fx-padding: 5;-fx-text-fill: #497376" fx:id="articleContentLabel" wrapText="true"/>
                 </VBox>
                 <VBox minWidth="250.0" maxWidth="250.0" minHeight="200.0" maxHeight="200.0"
                       style="-fx-border-style:dashed;-fx-border-color: #C8C8C8">
-                    <Label style=" -fx-font-size:14;-fx-padding: 5;-fx-text-fill: #497376" wrapText="true"/>
                     <Label style=" -fx-padding: 5;-fx-text-fill: #497376" fx:id="transactionTitleLabel" wrapText="true"/>
                     <Label style=" -fx-padding: 5;-fx-text-fill: #497376" fx:id="transactionContentLabel" wrapText="true"/>
                 </VBox>

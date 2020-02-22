@@ -117,6 +117,7 @@ public class EnglishFormatController implements Initializable {
                 enWord.setWord(singleWord.getWord());
                 enWord.setMean(JacksonUtil.bean2Json(singleWord.getMeans()));
                 enWord.setArticleId(IdGen.uuid(ConstantUtil.ARTICLE_EMPTY_TITLE));
+                enWord.setCreateDate(new Date());
                 if (!oldWords.contains(enWord.getWord())) {
                     enWords.add(enWord);
                 }

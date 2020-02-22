@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 /**
@@ -57,6 +58,7 @@ public class ArticleTranslationController implements Initializable {
 
     @FXML
     public void commitArticleTranslation(Event event) throws IOException {
+        articleTranslationView.getEnglishArticle().setCreateDate(new Date());
         articleTranslationView.getEnglishArticle().setId(IdGen.uuid(articleTranslationView.getEnglishArticle().getTitle()));
         articleTranslationView.getEnglishArticle().setMean(articleTranslation.getText());
         articleService.saveOrUpdate(articleTranslationView.getEnglishArticle());

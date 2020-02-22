@@ -20,6 +20,7 @@ import org.springframework.util.ObjectUtils;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 /**
@@ -60,6 +61,7 @@ public class ArticleContentController implements Initializable {
 
     @FXML
     public void commitArticleContent(Event event) throws IOException {
+        articleContentView.getEnglishArticle().setCreateDate(new Date());
         articleContentView.getEnglishArticle().setId(IdGen.uuid(articleContentView.getEnglishArticle().getTitle()));
         articleContentView.getEnglishArticle().setContent(contentTextArea.getText());
         articleService.saveOrUpdate(articleContentView.getEnglishArticle());

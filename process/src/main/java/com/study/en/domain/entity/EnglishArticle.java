@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 /**
  * 实体类对应的数据表为：english_article
  *
@@ -60,4 +62,10 @@ public class EnglishArticle {
      */
     @TableField("mean")
     private String mean;
+
+    /**
+     *
+     */
+    @TableField("create_date")
+    private Date createDate;
 }

@@ -165,6 +165,7 @@ public class AddWordController implements Initializable {
                             }
                         }
                         word.setMean(JacksonUtil.bean2Json(wordMeans));
+                        word.setCreateDate(new Date());
                         wordService.saveOrUpdate(word);
                     } else if (WordExportType.sentence.name().equals(selected)) {
                     } else {

@@ -7,8 +7,9 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 /**
- *
  * @author heyong
  * @date 2020/2/22
  */
@@ -19,7 +20,7 @@ public class EnglishWord {
     /**
      *
      */
-    @TableId(value = "id",type = IdType.INPUT)
+    @TableId(value = "id", type = IdType.INPUT)
     private String id;
 
     /**
@@ -37,6 +38,11 @@ public class EnglishWord {
      */
     @TableField("article_id")
     private String articleId;
+    /**
+     *
+     */
+    @TableField("create_date")
+    private Date createDate;
 
     /**
      *

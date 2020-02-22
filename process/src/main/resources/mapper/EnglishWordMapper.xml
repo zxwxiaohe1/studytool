@@ -6,6 +6,7 @@
         <result column="word" property="word"/>
         <result column="mean" property="mean"/>
         <result column="article_id" property="articleId"/>
+        <result column="create_date" property="createDate"/>
         <result column="remark" property="remark"/>
     </resultMap>
 </mapper>
