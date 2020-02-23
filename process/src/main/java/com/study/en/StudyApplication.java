@@ -55,7 +55,7 @@ public class StudyApplication extends AbstractJavaFxApplicationSupport {
         primaryStage.getIcons().add(new Image("/image/icon.png"));
         primaryStage.setWidth(1200);
         primaryStage.setHeight(700);
-        primaryStage.setResizable(false);
+//        primaryStage.setResizable(false);
         primaryStage.setTitle("study tool");
         primaryStage.show();
     }

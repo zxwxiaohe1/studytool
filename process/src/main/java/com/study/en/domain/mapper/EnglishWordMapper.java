@@ -4,6 +4,9 @@ package com.study.en.domain.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.study.en.domain.entity.EnglishWord;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @author heyong
@@ -11,4 +14,10 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface EnglishWordMapper extends BaseMapper<EnglishWord> {
+
+    /**
+     * @param englishWord
+     * @return
+     */
+    List<EnglishWord> pageByArticleIdLike(EnglishWord englishWord);
 }

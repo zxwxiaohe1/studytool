@@ -5,10 +5,16 @@ import com.study.en.domain.entity.EnglishWord;
 import com.study.en.domain.mapper.EnglishWordMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author heyong
  * @date 2020/02/21
  */
 @Service
 public class WordService extends ServiceImpl<EnglishWordMapper, EnglishWord> {
+
+    public List<EnglishWord> pageByArticleIdLike(EnglishWord englishWord) {
+        return baseMapper.pageByArticleIdLike(englishWord);
+    }
 }

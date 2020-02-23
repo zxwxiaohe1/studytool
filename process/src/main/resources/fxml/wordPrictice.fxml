@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <BorderPane fx:id="wordPricticePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
             minWidth="-Infinity"
-            prefHeight="800.0"
+            prefHeight="538.0"
             prefWidth="1000.0" stylesheets="@../css/format.css" xmlns="http://javafx.com/javafx/8.0.141"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.study.en.controller.WordPricticeController">
@@ -102,12 +102,33 @@
     </left>
     <center>
         <SplitPane>
-            <StackPane fx:id="tableAnchorPane">
+            <VBox>
                 <children>
-                    <VBox layoutX="120.0" layoutY="20.0" fx:id="centerVBox" prefHeight="50.0" spacing="10.0">
-                    </VBox>
+                    <StackPane fx:id="tableAnchorPane" alignment="BASELINE_LEFT">
+                        <children>
+                            <VBox fx:id="centerVBox">
+                            </VBox>
+                        </children>
+                    </StackPane>
                 </children>
-            </StackPane>
+            </VBox>
+
         </SplitPane>
     </center>
+    <bottom>
+        <AnchorPane>
+            <HBox layoutX="430.0" layoutY="5.0">
+                <Button styleClass="addConfigButton" minWidth="70.0" maxWidth="70.0"
+                        mnemonicParsing="false" focusTraversable="false" text="《《-" alignment="BASELINE_CENTER">
+                </Button>
+                <Button styleClass="addConfigButton" minWidth="70.0" maxWidth="70.0"
+                        mnemonicParsing="false" focusTraversable="false" disable="true" text="0/1"
+                        alignment="BASELINE_CENTER">
+                </Button>
+                <Button styleClass="addConfigButton" minWidth="70.0" maxWidth="70.0"
+                        mnemonicParsing="false" focusTraversable="false" text="-》》" alignment="BASELINE_CENTER">
+                </Button>
+            </HBox>
+        </AnchorPane>
+    </bottom>
 </BorderPane>

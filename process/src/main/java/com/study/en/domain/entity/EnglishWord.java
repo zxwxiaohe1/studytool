@@ -4,10 +4,15 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.study.en.modules.vo.Mean;
+import com.study.en.utils.JacksonUtil;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 
+import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author heyong
@@ -16,7 +21,7 @@ import java.util.Date;
 @Getter
 @Setter
 @TableName("english_word")
-public class EnglishWord {
+public class EnglishWord extends BaseEntity<EnglishWord> {
     /**
      *
      */
@@ -57,4 +62,6 @@ public class EnglishWord {
         this.word = word;
         this.mean = mean;
     }
+
+
 }

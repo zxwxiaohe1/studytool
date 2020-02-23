@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
@@ -24,6 +25,7 @@ public class AddWordCell extends TableCell<EnglishWord, Boolean> {
 
     public  TableView table;
     public Button addButton;
+    public Button editButton;
     private final DoubleProperty buttonY = new SimpleDoubleProperty();
 
     private WordService wordService;
@@ -33,16 +35,11 @@ public class AddWordCell extends TableCell<EnglishWord, Boolean> {
      *
      * @param table the table to which a new person can be added.
      */
-    public AddWordCell(final TableView table, final Button addButton) {
+    public AddWordCell(final TableView table, final Button addButton,final Button editButton) {
         this.table = table;
         this.addButton =addButton;
-        addButton.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                buttonY.set(mouseEvent.getScreenY());
-            }
-        });
-        addButton.setOnAction(new EventHandler<ActionEvent>() {
+        this.editButton = editButton;
+        this.addButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 wordService = SpringContextHolder.getBean("wordService");
@@ -53,6 +50,17 @@ public class AddWordCell extends TableCell<EnglishWord, Boolean> {
                 log.info("==>删除单词 "+word);
             }
         });
+        this.editButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+//                wordService = SpringContextHolder.getBean("wordService");
+//                Map<String, Object> columnMap = new HashMap<>();
+                String word = ((EnglishWord) table.getItems().get(getTableRow().getIndex())).getWord();
+//                columnMap.put("word",word);
+//                wordService.removeByMap(columnMap);
+                log.info("==>编辑单词 "+word);
+            }
+        });
     }
 
     @Override
@@ -60,7 +68,10 @@ public class AddWordCell extends TableCell<EnglishWord, Boolean> {
         super.updateItem(item, empty);
         if (!empty) {
             setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-            this.setGraphic(this.addButton);
+            HBox hbox = new HBox();
+            hbox.getChildren().add(this.addButton);
+            hbox.getChildren().add(this.editButton);
+            this.setGraphic(hbox);
         } else {
             setGraphic(null);
         }
