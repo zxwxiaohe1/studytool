@@ -5,6 +5,7 @@ import com.study.en.utils.ConstantUtil;
 import com.study.en.view.AddWordView;
 import com.study.en.view.EnglishFormatView;
 import com.study.en.view.MainView;
+import com.study.en.view.WordPricticeView;
 import de.felixroske.jfxsupport.FXMLController;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -32,6 +33,8 @@ public class MainController implements Initializable {
     public AddWordView addWordView;
     @Autowired
     public EnglishFormatView englishFormatView;
+    @Autowired
+    public WordPricticeView wordPricticeView;
     @FXML
     public Pane dynamicPane;
 
@@ -46,6 +49,8 @@ public class MainController implements Initializable {
                 dynamicPane.getChildren().add(englishFormatView.getView());
             } else if (mainView.getWordNotebookId().equals(((Button) e.getSource()).getId())) {
                 dynamicPane.getChildren().add(addWordView.getView());
+            } else if (mainView.getWordPricticeId().equals(((Button) e.getSource()).getId())) {
+                dynamicPane.getChildren().add(wordPricticeView.getView());
             }
         }
 

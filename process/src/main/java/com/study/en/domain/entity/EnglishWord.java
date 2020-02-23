@@ -49,4 +49,12 @@ public class EnglishWord {
      */
     @TableField("remark")
     private String remark;
+
+    public EnglishWord() {
+    }
+
+    public EnglishWord(String word, String mean) {
+        this.word = word;
+        this.mean = mean;
+    }
 }

@@ -1,5 +1,6 @@
 package com.study.en;
 
+import com.study.en.view.MainView;
 import de.felixroske.jfxsupport.AbstractFxmlView;
 import de.felixroske.jfxsupport.AbstractJavaFxApplicationSupport;
 import javafx.application.HostServices;
@@ -27,15 +28,16 @@ public class StudyApplication extends AbstractJavaFxApplicationSupport {
 
     public static void main(String[] args) {
         launch(args);
+//        launch(StudyApplication.class, MainView.class, args);
     }
 
     @Override
     public void init() {
-        try {
-            super.init();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            super.init();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         ConfigurableApplicationContext run = SpringApplication.run(StudyApplication.class);
         fxmlLoader = new FXMLLoader();
         fxmlLoader.setControllerFactory(run::getBean);

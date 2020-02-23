@@ -46,6 +46,14 @@
                     </ImageView>
                 </graphic>
             </Button>
+            <Button id = "word-prictice-id" styleClass="buttonGuideList" layoutX="10.0" layoutY="100.0" mnemonicParsing="false" prefHeight="25.0"
+                    prefWidth="190.0" onAction="#showEnglishFormatView" text="word notebook">
+                <graphic>
+                    <ImageView>
+                        <Image url="/image/export.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
         </AnchorPane>
     </left>
     <center >

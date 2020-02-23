@@ -15,6 +15,7 @@ public class MainView extends AbstractFxmlView {
 
     private final String englishFormatId = "english-format-id";
     private final String wordNotebookId = "word-notebook-id";
+    private final String wordPricticeId = "word-prictice-id";
 
 
 }
