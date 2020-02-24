@@ -14,7 +14,11 @@ import java.util.List;
 @Service
 public class WordService extends ServiceImpl<EnglishWordMapper, EnglishWord> {
 
-    public List<EnglishWord> pageByArticleIdLike(EnglishWord englishWord) {
-        return baseMapper.pageByArticleIdLike(englishWord);
+    public List<EnglishWord> pageByLike(EnglishWord englishWord) {
+        return baseMapper.pageByLike(englishWord);
+    }
+
+    public Integer pageByLikeAccount(EnglishWord englishWord) {
+        return baseMapper.pageByLikeAccount(englishWord);
     }
 }

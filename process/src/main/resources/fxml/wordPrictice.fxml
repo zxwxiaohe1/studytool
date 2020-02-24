@@ -5,14 +5,13 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <BorderPane fx:id="wordPricticePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
             minWidth="-Infinity"
-            prefHeight="538.0"
-            prefWidth="1000.0" stylesheets="@../css/format.css" xmlns="http://javafx.com/javafx/8.0.141"
+            prefHeight="530.0"
+            prefWidth="1000.0" stylesheets="@../css/wordPrictice.css" xmlns="http://javafx.com/javafx/8.0.141"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.study.en.controller.WordPricticeController">
     <top>
@@ -25,7 +24,7 @@
                             <Label layoutX="280.0" layoutY="20.0" prefHeight="20.0" text="Target:"/>
                             <TextField minHeight="27.0" minWidth="300.0" fx:id="articleTitle"/>
                             <Button maxWidth="110.0" minWidth="110.0" minHeight="25.0" alignment="BASELINE_LEFT"
-                                    text="search">
+                                    text="search" onAction="#searchArticleWord">
                                 <graphic>
                                     <ImageView>
                                         <Image url="/image/export.png"/>
@@ -36,12 +35,12 @@
                     </HBox>
                     <HBox layoutX="280.0" layoutY="60.0" prefHeight="-1.0" spacing="160.0">
                         <children>
-                            <RadioButton text="word" selected="true" mnemonicParsing="false">
+                            <RadioButton text="word" selected="true" mnemonicParsing="false" fx:id="wordRadioButton">
                                 <toggleGroup>
                                     <ToggleGroup fx:id="searchTypeGroup"/>
                                 </toggleGroup>
                             </RadioButton>
-                            <RadioButton text="article" toggleGroup="$searchTypeGroup"></RadioButton>
+                            <RadioButton text="article" toggleGroup="$searchTypeGroup" fx:id="articleRadioButton"></RadioButton>
                         </children>
                     </HBox>
                 </children>
@@ -117,16 +116,18 @@
     </center>
     <bottom>
         <AnchorPane>
-            <HBox layoutX="430.0" layoutY="5.0">
-                <Button styleClass="addConfigButton" minWidth="70.0" maxWidth="70.0"
-                        mnemonicParsing="false" focusTraversable="false" text="《《-" alignment="BASELINE_CENTER">
+            <HBox layoutX="430.0" layoutY="15.0">
+                <Button styleClass="addConfigButton" minWidth="70.0" maxWidth="70.0" mnemonicParsing="false"
+                        focusTraversable="false" text="《《-" alignment="BASELINE_CENTER" fx:id="lastPageButton"
+                        id="goToLastPage" onAction="#goToPage">
                 </Button>
                 <Button styleClass="addConfigButton" minWidth="70.0" maxWidth="70.0"
-                        mnemonicParsing="false" focusTraversable="false" disable="true" text="0/1"
+                        mnemonicParsing="false" focusTraversable="false" disable="true" text="0/1" fx:id="hintPageButton"
                         alignment="BASELINE_CENTER">
                 </Button>
-                <Button styleClass="addConfigButton" minWidth="70.0" maxWidth="70.0"
-                        mnemonicParsing="false" focusTraversable="false" text="-》》" alignment="BASELINE_CENTER">
+                <Button styleClass="addConfigButton" minWidth="70.0" maxWidth="70.0" mnemonicParsing="false"
+                        focusTraversable="false" text="-》》" alignment="BASELINE_CENTER" fx:id="nextPageButton"
+                        id="goToNextPage" onAction="#goToPage">
                 </Button>
             </HBox>
         </AnchorPane>

@@ -1,54 +1,25 @@
 package com.study.en.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.study.en.StudyApplication;
-import com.study.en.domain.entity.EnglishArticle;
 import com.study.en.domain.entity.EnglishWord;
-import com.study.en.domain.service.ArticleService;
 import com.study.en.domain.service.WordService;
-import com.study.en.modules.vo.Mean;
-import com.study.en.support.ennum.WordExportType;
-import com.study.en.support.ennum.WordType;
 import com.study.en.support.table.AddWordCell;
-import com.study.en.utils.ConstantUtil;
-import com.study.en.utils.DialogUtils;
 import com.study.en.utils.IdGen;
-import com.study.en.utils.JacksonUtil;
-import com.study.en.view.ArticleContentView;
-import com.study.en.view.ArticleTranslationView;
-import com.study.en.view.WordPricticeView;
 import de.felixroske.jfxsupport.FXMLController;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.CheckBoxTableCell;
-import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Paint;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
 
-import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -63,28 +34,35 @@ public class WordPricticeController extends BaseController implements Initializa
     @FXML
     public VBox centerVBox;
     @FXML
-    private WordPricticeView wordPricticeView;
+    public TextField articleTitle;
+    @FXML
+    public RadioButton wordRadioButton;
+    @FXML
+    public RadioButton articleRadioButton;
+    @FXML
+    public Button hintPageButton;
+    @FXML
+    public Button lastPageButton;
+    @FXML
+    public Button nextPageButton;
     @Autowired
     private WordService wordService;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //获取前台发送过来的数据
-        Integer pageNo = 1;
-        Integer pageSize = 9;
-        IPage<EnglishWord> page = new Page<>(pageNo, pageSize);
-        QueryWrapper<EnglishWord> wrapper = new QueryWrapper<>();
         EnglishWord englishWord = new EnglishWord();
-        englishWord.setArticleId("fbc831a3-0441-3fdc-adcb-d6584e64d3c0");
-        englishWord.getPage().setStart(0);
-        englishWord.getPage().setPageSize(9);
-        List<EnglishWord> list = null;
-        try {
-            list = wordService.pageByArticleIdLike(englishWord);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        List<EnglishWord> list = wordService.pageByLike(englishWord);
+        Integer count = wordService.pageByLikeAccount(englishWord);
         if (!ObjectUtils.isEmpty(list)) {
+            String hintPageButtonText = "1/1";
+            if (count != 0) {
+                Integer countPage = count / englishWord.getPage().getPageSize();
+                if ((count % englishWord.getPage().getPageSize()) != 0) {
+                    countPage += 1;
+                }
+                hintPageButtonText = "1/" + countPage;
+            }
+            hintPageButton.setText(hintPageButtonText);
             centerVBox.getChildren().add(createTableView(list));
         } else {
             centerVBox.getChildren().add(createTableView(null));
@@ -120,7 +98,7 @@ public class WordPricticeController extends BaseController implements Initializa
         tcButton.setCellFactory(new Callback<TableColumn<EnglishWord, Boolean>, TableCell<EnglishWord, Boolean>>() {
             @Override
             public TableCell<EnglishWord, Boolean> call(TableColumn<EnglishWord, Boolean> personBooleanTableColumn) {
-                return new AddWordCell(tableView, new Button("del"),new Button("edit"));
+                return new AddWordCell(tableView, new Button("del"), new Button("edit"));
             }
         });
 
@@ -131,11 +109,86 @@ public class WordPricticeController extends BaseController implements Initializa
 
 
         ObservableList<EnglishWord> data = FXCollections.observableArrayList();
-        if (!ObjectUtils.isEmpty(words))  {
+        if (!ObjectUtils.isEmpty(words)) {
             data.setAll(words);
         }
         tableView.setItems(data);
         return tableView;
     }
 
+    @FXML
+    public void searchArticleWord(ActionEvent event) {
+
+        List<EnglishWord> words = null;
+        String hintPageButtonText = "1/1";
+        EnglishWord englishWord = new EnglishWord();
+        if (StringUtils.isBlank(articleTitle.getText())) {
+            words = wordService.pageByLike(englishWord);
+        } else {
+            if (wordRadioButton.isSelected()) {
+                englishWord.setWord(articleTitle.getText());
+            } else {
+                englishWord.setArticleId(IdGen.uuid(articleTitle.getText()));
+            }
+            words = wordService.pageByLike(englishWord);
+        }
+        Integer count = wordService.pageByLikeAccount(englishWord);
+        if (count != 0) {
+            Integer countPage = count / englishWord.getPage().getPageSize();
+            if ((count % englishWord.getPage().getPageSize()) != 0) {
+                countPage += 1;
+            }
+            hintPageButtonText = "1/" + countPage;
+        }
+        hintPageButton.setText(hintPageButtonText);
+        centerVBox.getChildren().clear();
+        centerVBox.getChildren().add(createTableView(words));
+    }
+
+    @FXML
+    public void goToPage(ActionEvent event) {
+        EnglishWord englishWord = new EnglishWord();
+        String[] showPages = hintPageButton.getText().split("/");
+        Integer currPage = Integer.valueOf(showPages[0].trim());
+
+        if ("goToLastPage".equals(((Button) event.getSource()).getId())) {
+            if (currPage != 1) {
+                currPage -= 2;
+                englishWord.getPage().setStart(currPage * englishWord.getPage().getPageSize());
+                currPage += 1;
+            }
+        } else if ("goToNextPage".equals(((Button) event.getSource()).getId())) {
+            if (Integer.valueOf(showPages[0].trim()) < Integer.valueOf(showPages[1].trim())) {
+                englishWord.getPage().setStart(currPage * englishWord.getPage().getPageSize());
+                currPage += 1;
+            }else{
+                currPage -= 1;
+                englishWord.getPage().setStart(currPage * englishWord.getPage().getPageSize());
+                currPage += 1;
+            }
+        }
+        List<EnglishWord> words = null;
+        String hintPageButtonText = "1/1";
+        if (StringUtils.isBlank(articleTitle.getText())) {
+            words = wordService.pageByLike(englishWord);
+        } else {
+            if (wordRadioButton.isSelected()) {
+                englishWord.setWord(articleTitle.getText());
+            } else {
+                englishWord.setArticleId(IdGen.uuid(articleTitle.getText()));
+            }
+            words = wordService.pageByLike(englishWord);
+        }
+        Integer count = wordService.pageByLikeAccount(englishWord);
+        if (count != 0) {
+            Integer countPage = count / englishWord.getPage().getPageSize();
+            if ((count % englishWord.getPage().getPageSize()) != 0) {
+                countPage += 1;
+            }
+            hintPageButtonText = currPage + "/" + countPage;
+        }
+        hintPageButton.setText(hintPageButtonText);
+        centerVBox.getChildren().clear();
+        centerVBox.getChildren().add(createTableView(words));
+    }
 }

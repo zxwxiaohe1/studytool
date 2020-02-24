@@ -19,5 +19,11 @@ public interface EnglishWordMapper extends BaseMapper<EnglishWord> {
      * @param englishWord
      * @return
      */
-    List<EnglishWord> pageByArticleIdLike(EnglishWord englishWord);
+    List<EnglishWord> pageByLike(EnglishWord englishWord);
+
+    /**
+     * @param englishWord
+     * @return
+     */
+    Integer pageByLikeAccount(EnglishWord englishWord);
 }

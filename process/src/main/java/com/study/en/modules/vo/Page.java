@@ -11,8 +11,8 @@ import lombok.Setter;
 @Getter
 public class Page<T> {
 
-    private Integer start;
-    private Integer pageSize;
-    private Integer count;
+    private Integer start = 0;
+    private Integer pageSize = 9;
+    private Integer count = 0;
 
 }

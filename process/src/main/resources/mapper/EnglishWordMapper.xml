@@ -17,12 +17,30 @@
         a.create_date AS  "createDate",
         a.remark AS "remark"
     </sql>
-    <select id="pageByArticleIdLike" resultMap="baseResultMap">
+    <select id="pageByLike" resultMap="baseResultMap">
         SELECT
         <include refid="baseColumns"/>
         FROM english_word a
-        WHERE a.article_id Like '%'||#{articleId}||'%'
+        WHERE 1=1
+        <if test="word != null  and word != ''">
+            AND a.word Like CONCAT('%',#{word},'%')
+        </if>
+        <if test="articleId != null  and articleId != ''">
+            AND a.article_id Like CONCAT('%',#{articleId},'%')
+        </if>
         ORDER BY a.create_date DESC
         limit #{page.start}, #{page.pageSize}
+    </select>
+    <select id="pageByLikeAccount" resultType="java.lang.Integer">
+        SELECT
+        COUNT(a.id)
+        FROM english_word a
+        WHERE 1=1
+        <if test="word != null  and word != ''">
+            AND a.word Like CONCAT('%',#{word},'%')
+        </if>
+        <if test="articleId != null  and articleId != ''">
+            AND a.article_id Like CONCAT('%',#{articleId},'%')
+        </if>
     </select>
 </mapper>
