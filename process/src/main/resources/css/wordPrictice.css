@@ -14,3 +14,6 @@
 .borderStyle {
     -fx-border-style: none;
 }
+.hitTextLabel {
+    -fx-font: red;
+}

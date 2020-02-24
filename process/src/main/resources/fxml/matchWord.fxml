@@ -9,12 +9,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.AnchorPane?>
 <BorderPane fx:id="matchWordContentPane" maxHeight="500.0" maxWidth="810.0" minHeight="500.0" minWidth="810.0"
-      prefHeight="477.0"
-      prefWidth="280.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.study.en.controller.MatchWordController">
+            prefHeight="477.0" prefWidth="280.0" xmlns="http://javafx.com/javafx/8.0.141"
+            xmlns:fx="http://javafx.com/fxml/1"
+            stylesheets="@../css/wordPrictice.css" fx:controller="com.study.en.controller.MatchWordController">
     <AnchorPane>
         <VBox layoutX="150.0" layoutY="100.0">
-            <Label styleClass="hitTextLabel" text="translation: " wrapText="false" />
+            <Label styleClass="hitTextLabel" text="translation: " wrapText="false"/>
             <Label text="vi.极好的">
             </Label>
         </VBox>
