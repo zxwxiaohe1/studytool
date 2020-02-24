@@ -1,9 +1,11 @@
 package com.study.en.controller;
 
+import com.study.en.StudyApplication;
 import com.study.en.domain.entity.EnglishWord;
 import com.study.en.domain.service.WordService;
 import com.study.en.support.table.AddWordCell;
 import com.study.en.utils.IdGen;
+import com.study.en.view.MatchWordView;
 import de.felixroske.jfxsupport.FXMLController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -14,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.util.Callback;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,8 +48,18 @@ public class WordPricticeController extends BaseController implements Initializa
     public Button lastPageButton;
     @FXML
     public Button nextPageButton;
+    @FXML
+    public Button matchWordButton;
+    @FXML
+    public Button matchMeanButton;
+    @FXML
+    public Button chooseWordButton;
+    @FXML
+    public Button chooseMeanButton;
     @Autowired
     private WordService wordService;
+    @Autowired
+    private MatchWordView matchWordView;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -76,21 +89,24 @@ public class WordPricticeController extends BaseController implements Initializa
 
         TableColumn<EnglishWord, String> tcWord = new TableColumn<>("Word");
         tcWord.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getWord()));
+//        tcWord.setSortable(false);
         tcWord.setResizable(false);
+        tcWord.setEditable(true);
         tcWord.setMinWidth(150.0);
         tcWord.setMaxWidth(200.0);
-        tcWord.setSortable(false);
         TableColumn<EnglishWord, String> tcMean = new TableColumn<>("Mean");
         tcMean.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getMean()));
-        tcMean.setSortable(false);
+//        tcMean.setSortable(false);
         tcMean.setResizable(false);
+        tcMean.setEditable(true);
         tcMean.setMinWidth(250.0);
         tcMean.setMaxWidth(250.0);
 
         TableColumn<EnglishWord, String> tcArticle = new TableColumn<>("Article");
         tcArticle.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getArticleId()));
-        tcArticle.setSortable(false);
+//        tcArticle.setSortable(false);
         tcArticle.setResizable(false);
+        tcArticle.setEditable(true);
         tcArticle.setMinWidth(200.0);
         tcArticle.setMaxWidth(200.0);
 
@@ -161,7 +177,7 @@ public class WordPricticeController extends BaseController implements Initializa
             if (Integer.valueOf(showPages[0].trim()) < Integer.valueOf(showPages[1].trim())) {
                 englishWord.getPage().setStart(currPage * englishWord.getPage().getPageSize());
                 currPage += 1;
-            }else{
+            } else {
                 currPage -= 1;
                 englishWord.getPage().setStart(currPage * englishWord.getPage().getPageSize());
                 currPage += 1;
@@ -190,5 +206,24 @@ public class WordPricticeController extends BaseController implements Initializa
         hintPageButton.setText(hintPageButtonText);
         centerVBox.getChildren().clear();
         centerVBox.getChildren().add(createTableView(words));
+    }
+
+    @FXML
+    public void wordPricticeButtonAction(ActionEvent event) {
+
+        EnglishWord englishWord = new EnglishWord();
+        if (articleRadioButton.isSelected()) {
+            englishWord.setArticleId(IdGen.uuid(articleTitle.getText()));
+        }
+        matchWordView.setEnglishWords(wordService.pageByLike(englishWord));
+        if ("matchWordButton".equals(((Button) event.getSource()).getId())) {
+            StudyApplication.showView(matchWordView, Modality.NONE, "article content");
+        } else if ("matchMeanButton".equals(((Button) event.getSource()).getId())) {
+
+        } else if ("chooseWordButton".equals(((Button) event.getSource()).getId())) {
+
+        } else if ("chooseMeanButton".equals(((Button) event.getSource()).getId())) {
+
+        }
     }
 }

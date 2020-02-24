@@ -3,6 +3,7 @@ package com.study.en.support.table;
 import com.study.en.domain.entity.EnglishWord;
 import com.study.en.domain.service.WordService;
 import com.study.en.support.holder.SpringContextHolder;
+import com.study.en.utils.DialogUtils;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
@@ -48,16 +49,13 @@ public class AddWordCell extends TableCell<EnglishWord, Boolean> {
                 columnMap.put("word",word);
                 wordService.removeByMap(columnMap);
                 log.info("==>删除单词 "+word);
+                DialogUtils.hintDialog("hint","delete success !");
             }
         });
         this.editButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-//                wordService = SpringContextHolder.getBean("wordService");
-//                Map<String, Object> columnMap = new HashMap<>();
                 String word = ((EnglishWord) table.getItems().get(getTableRow().getIndex())).getWord();
-//                columnMap.put("word",word);
-//                wordService.removeByMap(columnMap);
                 log.info("==>编辑单词 "+word);
             }
         });

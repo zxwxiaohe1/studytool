@@ -43,4 +43,17 @@ public class DialogUtils {
             }
         });
     }
+    public static void hintDialog(String title, String ContentText) {
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle(title);
+        dialog.setContentText(ContentText);
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+        dialog.getDialogPane().setPrefSize(350, 100);
+        Optional<ButtonType> s = dialog.showAndWait();
+        s.ifPresent(s1 -> {
+            if (s1.equals(ButtonType.CLOSE)) {
+                dialog.close();
+            }
+        });
+    }
 }

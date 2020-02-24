@@ -1,7 +1,5 @@
 package com.study.en.controller;
 
-import com.study.en.domain.service.ArticleService;
-import com.study.en.utils.ConstantUtil;
 import com.study.en.view.AddWordView;
 import com.study.en.view.EnglishFormatView;
 import com.study.en.view.MainView;
@@ -11,13 +9,8 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.SplitPane;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TreeItem;
 import javafx.scene.layout.Pane;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
