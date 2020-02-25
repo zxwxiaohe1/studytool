@@ -1,5 +1,6 @@
 package com.study.en.controller;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.study.en.StudyApplication;
 import com.study.en.domain.entity.EnglishWord;
 import com.study.en.domain.service.WordService;
@@ -215,7 +216,7 @@ public class WordPricticeController extends BaseController implements Initializa
         if (articleRadioButton.isSelected()) {
             englishWord.setArticleId(IdGen.uuid(articleTitle.getText()));
         }
-        matchWordView.setEnglishWords(wordService.pageByLike(englishWord));
+        matchWordView.setEnglishWords(wordService.list(Wrappers.query(englishWord)));
         if ("matchWordButton".equals(((Button) event.getSource()).getId())) {
             StudyApplication.showView(matchWordView, Modality.NONE, "article content");
         } else if ("matchMeanButton".equals(((Button) event.getSource()).getId())) {

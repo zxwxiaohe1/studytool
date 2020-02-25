@@ -4,6 +4,7 @@ import com.study.en.view.MainView;
 import de.felixroske.jfxsupport.AbstractFxmlView;
 import de.felixroske.jfxsupport.AbstractJavaFxApplicationSupport;
 import javafx.application.HostServices;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -11,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -78,5 +80,12 @@ public class StudyApplication extends AbstractJavaFxApplicationSupport {
         newStage.setTitle(title);
         newStage.initStyle(StageStyle.DECORATED);
         newStage.show();
+        newStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+//                view.getView().layout();
+                newStage.close();
+            }
+        });
     }
 }

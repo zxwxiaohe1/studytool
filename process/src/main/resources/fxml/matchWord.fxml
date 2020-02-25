@@ -13,10 +13,70 @@
             xmlns:fx="http://javafx.com/fxml/1"
             stylesheets="@../css/wordPrictice.css" fx:controller="com.study.en.controller.MatchWordController">
     <AnchorPane>
-        <VBox layoutX="150.0" layoutY="100.0">
-            <Label styleClass="hitTextLabel" text="translation: " wrapText="false"/>
-            <Label text="vi.极好的">
-            </Label>
-        </VBox>
+        <children>
+            <VBox layoutX="150.0" layoutY="100.0" spacing="150.0">
+                <VBox layoutX="150.0" layoutY="100.0" spacing="60.0">
+                    <children>
+                        <HBox layoutX="5.0" spacing="200.0">
+                            <children>
+                                <HBox>
+                                    <children>
+                                        <Label styleClass="hitTextLabel" text="translation: " wrapText="false"/>
+                                    </children>
+                                </HBox>
+                                <HBox>
+                                    <children>
+                                        <Label styleClass="hitTextLabel" text="word: " wrapText="false"/>
+                                        <TextField fx:id="inputWordTextField"></TextField>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </HBox>
+                        <AnchorPane>
+                            <children>
+                                <HBox layoutX="10.0" spacing="80.0">
+                                    <children>
+                                        <Label minWidth="280.0" maxWidth="280.0" wrapText="true"
+                                               fx:id="wordMeansLabel" styleClass="hitContentLabel"
+                                               text="vi.极好的极好的极好的极好的极好的极好的极好的极好的极好的极好的极好的"></Label>
+                                        <Label minWidth="270.0" maxWidth="270.0" prefWidth="50.0"
+                                               fx:id="wordTargetLabel" styleClass="hitContentLabel" text="good"></Label>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </AnchorPane>
+                    </children>
+                </VBox>
+                <HBox layoutX="5.0" spacing="80.0">
+                    <children>
+                        <Label minWidth="270.0" maxWidth="270.0" prefWidth="50.0"
+                               fx:id="hintWordRateLabel" styleClass="hitContentLabel" text="good"></Label>
+                    </children>
+                </HBox>
+                <HBox layoutX="5.0" spacing="80.0">
+                    <children>
+                        <Button id="matchWordButton" onAction="#matchWordAction"
+                                minWidth="140.0" maxWidth="140.0"
+                                text="commit" alignment="BASELINE_LEFT">
+                            <graphic>
+                                <ImageView>
+                                    <Image url="/image/about.png"/>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                        <Button id="matchWordButton" onAction="#matchWordAction"
+                                minWidth="140.0" maxWidth="140.0"
+                                text="next" alignment="BASELINE_LEFT">
+                            <graphic>
+                                <ImageView>
+                                    <Image url="/image/about.png"/>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                    </children>
+                </HBox>
+            </VBox>
+        </children>
+
     </AnchorPane>
 </BorderPane>

@@ -4,6 +4,7 @@
     -fx-border-color: #3AEAE4;
     -fx-border-style: dashed;
 }
+
 .button:hover {
     -fx-background-color: #fff;
 }
@@ -11,9 +12,25 @@
 .button:pressed {
     -fx-background-color: #fff;
 }
+
 .borderStyle {
     -fx-border-style: none;
 }
+
 .hitTextLabel {
-    -fx-font: red;
+    -fx-text-fill: #808080;
+    -fx-font-weight: bold;
+    -fx-font-size: 1.2em;
+}
+
+.hitContentLabel {
+    -fx-text-fill: #2BD52B;
+    -fx-font-weight: bold;
+    -fx-font-size: 1.3em;
+}
+
+.text-field {
+    -fx-background-color: -fx-text-box-border，-fx-background;
+    -fx-background-insets: 0,0 0 1 0;
+    -fx-background-radius: 0;
 }
