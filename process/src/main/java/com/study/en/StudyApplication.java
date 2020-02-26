@@ -1,6 +1,8 @@
 package com.study.en;
 
+import com.study.en.support.holder.SpringContextHolder;
 import com.study.en.view.MainView;
+import com.study.en.view.MatchWordView;
 import de.felixroske.jfxsupport.AbstractFxmlView;
 import de.felixroske.jfxsupport.AbstractJavaFxApplicationSupport;
 import javafx.application.HostServices;
@@ -83,7 +85,11 @@ public class StudyApplication extends AbstractJavaFxApplicationSupport {
         newStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
-//                view.getView().layout();
+                String paneTitle = ((Stage) event.getSource()).getTitle().replaceAll(" +", "").toLowerCase();
+                if ("match word".replaceAll(" +", "").toLowerCase()
+                        .equals(paneTitle)) {
+                    SpringContextHolder.getBean(MatchWordView.class).setOpened(false);
+                }
                 newStage.close();
             }
         });

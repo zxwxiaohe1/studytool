@@ -5,7 +5,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.AnchorPane?>
 <BorderPane fx:id="matchWordContentPane" maxHeight="500.0" maxWidth="810.0" minHeight="500.0" minWidth="810.0"
@@ -37,22 +36,15 @@
                                 <HBox layoutX="10.0" spacing="80.0">
                                     <children>
                                         <Label minWidth="280.0" maxWidth="280.0" wrapText="true"
-                                               fx:id="wordMeansLabel" styleClass="hitContentLabel"
-                                               text="vi.极好的极好的极好的极好的极好的极好的极好的极好的极好的极好的极好的"></Label>
+                                               fx:id="wordMeansLabel" styleClass="hitContentLabel"></Label>
                                         <Label minWidth="270.0" maxWidth="270.0" prefWidth="50.0"
-                                               fx:id="wordTargetLabel" styleClass="hitContentLabel" text="good"></Label>
+                                               fx:id="wordTargetLabel" styleClass="hitContentLabel"></Label>
                                     </children>
                                 </HBox>
                             </children>
                         </AnchorPane>
                     </children>
                 </VBox>
-                <HBox layoutX="5.0" spacing="80.0">
-                    <children>
-                        <Label minWidth="270.0" maxWidth="270.0" prefWidth="50.0"
-                               fx:id="hintWordRateLabel" styleClass="hitContentLabel" text="good"></Label>
-                    </children>
-                </HBox>
                 <HBox layoutX="5.0" spacing="80.0">
                     <children>
                         <Button id="matchWordButton" onAction="#matchWordAction"
@@ -64,7 +56,7 @@
                                 </ImageView>
                             </graphic>
                         </Button>
-                        <Button id="matchWordButton" onAction="#matchWordAction"
+                        <Button id="nextWordButton" onAction="#matchWordAction"
                                 minWidth="140.0" maxWidth="140.0"
                                 text="next" alignment="BASELINE_LEFT">
                             <graphic>

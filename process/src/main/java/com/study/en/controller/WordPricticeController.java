@@ -218,7 +218,7 @@ public class WordPricticeController extends BaseController implements Initializa
         }
         matchWordView.setEnglishWords(wordService.list(Wrappers.query(englishWord)));
         if ("matchWordButton".equals(((Button) event.getSource()).getId())) {
-            StudyApplication.showView(matchWordView, Modality.NONE, "article content");
+            StudyApplication.showView(matchWordView, Modality.NONE, "match word");
         } else if ("matchMeanButton".equals(((Button) event.getSource()).getId())) {
 
         } else if ("chooseWordButton".equals(((Button) event.getSource()).getId())) {
