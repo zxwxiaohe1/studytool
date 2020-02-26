@@ -61,6 +61,8 @@ public class MatchWordController extends BaseController implements Initializable
                     matchWordView.setOpened(true);
                     List<EnglishWord> englishWords = matchWordView.getEnglishWords();
                     if (ObjectUtils.isEmpty(englishWords)) {
+                        wordMeansLabel.setText("");
+                        wordDidAndCount.setText("0/0");
                         return;
                     }
                     matchWordView.setAmount(englishWords.size());
@@ -106,6 +108,10 @@ public class MatchWordController extends BaseController implements Initializable
             if (wordTargetLabel.getText().toLowerCase().equals(inputWordTextField.getText().toLowerCase())) {
                 wordTargetLabel.setTextFill(Paint.valueOf("#006633"));
                 List<EnglishWord> englishWords = matchWordView.getEnglishWords();
+                if (ObjectUtils.isEmpty(englishWords)) {
+                    DialogUtils.hintDialog("hint", "no words!");
+                    return;
+                }
                 EnglishWord word = englishWords.get(0);
                 if (ObjectUtils.isEmpty(word)) {
                     return;
