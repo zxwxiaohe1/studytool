@@ -10,11 +10,14 @@ import de.felixroske.jfxsupport.FXMLController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -37,6 +40,8 @@ public class MatchWordController extends BaseController implements Initializable
     @FXML
     public Label wordTargetLabel;
     @FXML
+    public Label wordDidAndCount;
+    @FXML
     public TextField inputWordTextField;
     @FXML
     public BorderPane matchWordContentPane;
@@ -58,6 +63,7 @@ public class MatchWordController extends BaseController implements Initializable
                     if (ObjectUtils.isEmpty(englishWords)) {
                         return;
                     }
+                    matchWordView.setAmount(englishWords.size());
                     Collections.shuffle(englishWords);
                     EnglishWord word = englishWords.get(0);
                     if (ObjectUtils.isEmpty(word)) {
@@ -67,6 +73,21 @@ public class MatchWordController extends BaseController implements Initializable
                     wordTargetLabel.setText(word.getWord());
                     wordTargetLabel.setVisible(false);
                     englishWords.remove(0);
+                    wordDidAndCount.setText(englishWords.size() + "/" + matchWordView.getAmount());
+
+                }
+            }
+        });
+        inputWordTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent ke) {
+                if (ke.getCode().equals(KeyCode.ENTER)) {
+                    if (wordTargetLabel.getText().toLowerCase().equals(inputWordTextField.getText().toLowerCase())) {
+                        wordTargetLabel.setTextFill(Paint.valueOf("#006633"));
+                    } else {
+                        wordTargetLabel.setTextFill(Color.RED);
+                    }
+                    wordTargetLabel.setVisible(true);
                 }
             }
         });
@@ -94,6 +115,7 @@ public class MatchWordController extends BaseController implements Initializable
                 wordTargetLabel.setVisible(false);
                 inputWordTextField.setText("");
                 englishWords.remove(0);
+                wordDidAndCount.setText(englishWords.size() + "/" + matchWordView.getAmount());
             } else {
                 DialogUtils.hintDialog("hint", "Please enter the word correctly!");
             }

@@ -45,30 +45,38 @@
                         </AnchorPane>
                     </children>
                 </VBox>
-                <HBox layoutX="5.0" spacing="80.0">
-                    <children>
-                        <Button id="matchWordButton" onAction="#matchWordAction"
-                                minWidth="140.0" maxWidth="140.0"
-                                text="commit" alignment="BASELINE_LEFT">
-                            <graphic>
-                                <ImageView>
-                                    <Image url="/image/about.png"/>
-                                </ImageView>
-                            </graphic>
-                        </Button>
-                        <Button id="nextWordButton" onAction="#matchWordAction"
-                                minWidth="140.0" maxWidth="140.0"
-                                text="next" alignment="BASELINE_LEFT">
-                            <graphic>
-                                <ImageView>
-                                    <Image url="/image/about.png"/>
-                                </ImageView>
-                            </graphic>
-                        </Button>
-                    </children>
-                </HBox>
+                <VBox>
+                    <HBox minWidth="100.0" maxWidth="100.0">
+                        <AnchorPane>
+                            <children>
+                                <Label fx:id="wordDidAndCount" layoutX="400.0" styleClass="hitTextLabel" text="0/0" wrapText="false"/>
+                            </children>
+                        </AnchorPane>
+                    </HBox>
+                    <HBox layoutX="5.0" spacing="80.0">
+                        <children>
+                            <Button id="matchWordButton" onAction="#matchWordAction"
+                                    minWidth="140.0" maxWidth="140.0"
+                                    text="commit" alignment="BASELINE_LEFT">
+                                <graphic>
+                                    <ImageView>
+                                        <Image url="/image/about.png"/>
+                                    </ImageView>
+                                </graphic>
+                            </Button>
+                            <Button id="nextWordButton" onAction="#matchWordAction"
+                                    minWidth="140.0" maxWidth="140.0"
+                                    text="next" alignment="BASELINE_LEFT">
+                                <graphic>
+                                    <ImageView>
+                                        <Image url="/image/about.png"/>
+                                    </ImageView>
+                                </graphic>
+                            </Button>
+                        </children>
+                    </HBox>
+                </VBox>
             </VBox>
         </children>
-
     </AnchorPane>
 </BorderPane>

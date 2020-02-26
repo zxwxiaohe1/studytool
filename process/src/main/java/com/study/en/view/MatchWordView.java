@@ -5,6 +5,7 @@ import de.felixroske.jfxsupport.AbstractFxmlView;
 import de.felixroske.jfxsupport.FXMLView;
 import lombok.Getter;
 import lombok.Setter;
+
 import java.util.List;
 
 /**
@@ -18,4 +19,6 @@ public class MatchWordView extends AbstractFxmlView {
     private List<EnglishWord> englishWords;
 
     private Boolean opened = false;
+
+    private Integer amount = 0;
 }
