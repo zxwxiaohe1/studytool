@@ -75,7 +75,7 @@ public class MatchWordController extends BaseController implements Initializable
                     wordTargetLabel.setText(word.getWord());
                     wordTargetLabel.setVisible(false);
                     englishWords.remove(0);
-                    wordDidAndCount.setText(englishWords.size() + "/" + matchWordView.getAmount());
+                    wordDidAndCount.setText((matchWordView.getAmount() - englishWords.size()) + "/" + matchWordView.getAmount());
 
                 }
             }
@@ -84,12 +84,9 @@ public class MatchWordController extends BaseController implements Initializable
             @Override
             public void handle(KeyEvent ke) {
                 if (ke.getCode().equals(KeyCode.ENTER)) {
-                    if (wordTargetLabel.getText().toLowerCase().equals(inputWordTextField.getText().toLowerCase())) {
-                        wordTargetLabel.setTextFill(Paint.valueOf("#006633"));
-                    } else {
-                        wordTargetLabel.setTextFill(Color.RED);
-                    }
-                    wordTargetLabel.setVisible(true);
+                    matchWord();
+                } else if (ke.getCode().equals(KeyCode.DOWN)) {
+                    nextWord();
                 }
             }
         });
@@ -98,34 +95,41 @@ public class MatchWordController extends BaseController implements Initializable
     @FXML
     public void matchWordAction(ActionEvent event) {
         if ("matchWordButton".equals(((Button) event.getSource()).getId())) {
-            if (wordTargetLabel.getText().toLowerCase().equals(inputWordTextField.getText().toLowerCase())) {
-                wordTargetLabel.setTextFill(Paint.valueOf("#006633"));
-            } else {
-                wordTargetLabel.setTextFill(Color.RED);
-            }
-            wordTargetLabel.setVisible(true);
+            matchWord();
         } else if ("nextWordButton".equals(((Button) event.getSource()).getId())) {
-            if (wordTargetLabel.getText().toLowerCase().equals(inputWordTextField.getText().toLowerCase())) {
-                wordTargetLabel.setTextFill(Paint.valueOf("#006633"));
-                List<EnglishWord> englishWords = matchWordView.getEnglishWords();
-                if (ObjectUtils.isEmpty(englishWords)) {
-                    DialogUtils.hintDialog("hint", "no words!");
-                    return;
-                }
-                EnglishWord word = englishWords.get(0);
-                if (ObjectUtils.isEmpty(word)) {
-                    return;
-                }
-                wordMeansLabel.setText(createViewMean(JacksonUtil.json2JavaType(word.getMean(), List.class, Mean.class)));
-                wordTargetLabel.setText(word.getWord());
-                wordTargetLabel.setVisible(false);
-                inputWordTextField.setText("");
-                englishWords.remove(0);
-                wordDidAndCount.setText(englishWords.size() + "/" + matchWordView.getAmount());
-            } else {
-                DialogUtils.hintDialog("hint", "Please enter the word correctly!");
-            }
+            nextWord();
+        }
+    }
 
+    public void matchWord() {
+        if (wordTargetLabel.getText().trim().toLowerCase().equals(inputWordTextField.getText().trim().toLowerCase())) {
+            wordTargetLabel.setTextFill(Paint.valueOf("#006633"));
+        } else {
+            wordTargetLabel.setTextFill(Color.RED);
+        }
+        wordTargetLabel.setVisible(true);
+    }
+
+    public void nextWord() {
+        if (wordTargetLabel.getText().trim().toLowerCase().equals(inputWordTextField.getText().trim().toLowerCase())) {
+            wordTargetLabel.setTextFill(Paint.valueOf("#006633"));
+            List<EnglishWord> englishWords = matchWordView.getEnglishWords();
+            if (ObjectUtils.isEmpty(englishWords)) {
+                DialogUtils.hintDialog("hint", "no words!");
+                return;
+            }
+            EnglishWord word = englishWords.get(0);
+            if (ObjectUtils.isEmpty(word)) {
+                return;
+            }
+            wordMeansLabel.setText(createViewMean(JacksonUtil.json2JavaType(word.getMean(), List.class, Mean.class)));
+            wordTargetLabel.setText(word.getWord());
+            wordTargetLabel.setVisible(false);
+            inputWordTextField.setText("");
+            englishWords.remove(0);
+            wordDidAndCount.setText((matchWordView.getAmount() - englishWords.size()) + "/" + matchWordView.getAmount());
+        } else {
+            DialogUtils.hintDialog("hint", "Please enter the word correctly!");
         }
     }
 

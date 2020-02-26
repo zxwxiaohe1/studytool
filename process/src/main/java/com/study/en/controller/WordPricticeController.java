@@ -215,8 +215,10 @@ public class WordPricticeController extends BaseController implements Initializa
         EnglishWord englishWord = new EnglishWord();
         if (articleRadioButton.isSelected()) {
             englishWord.setArticleId(IdGen.uuid(articleTitle.getText()));
+            matchWordView.setEnglishWords(wordService.listByLike(englishWord));
+        } else {
+            matchWordView.setEnglishWords(wordService.list(Wrappers.query(englishWord)));
         }
-        matchWordView.setEnglishWords(wordService.list(Wrappers.query(englishWord)));
         if ("matchWordButton".equals(((Button) event.getSource()).getId())) {
             if (!matchWordView.getOpened()) {
                 StudyApplication.showView(matchWordView, Modality.NONE, "match word");

@@ -43,4 +43,16 @@
             AND a.article_id Like CONCAT('%',#{articleId},'%')
         </if>
     </select>
+    <select id="listByLike" resultMap="baseResultMap">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM english_word a
+        WHERE 1=1
+        <if test="word != null  and word != ''">
+            AND a.word Like CONCAT('%',#{word},'%')
+        </if>
+        <if test="articleId != null  and articleId != ''">
+            AND a.article_id Like CONCAT('%',#{articleId},'%')
+        </if>
+    </select>
 </mapper>

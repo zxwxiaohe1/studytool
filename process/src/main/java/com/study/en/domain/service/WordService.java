@@ -21,4 +21,12 @@ public class WordService extends ServiceImpl<EnglishWordMapper, EnglishWord> {
     public Integer pageByLikeAccount(EnglishWord englishWord) {
         return baseMapper.pageByLikeAccount(englishWord);
     }
+
+    /**
+     * @param englishWord
+     * @return
+     */
+    public List<EnglishWord> listByLike(EnglishWord englishWord) {
+        return baseMapper.listByLike(englishWord);
+    }
 }
