@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.en.domain.mapper.EnglishWordPricticeMapper">
+    <resultMap id="baseResultMap" type="com.study.en.domain.entity.EnglishWordPrictice">
+        <id column="wordId" property="wordId"/>
+        <result column="errorTime" property="errorTime"/>
+        <result column="difficultyLevel" property="difficultyLevel"/>
+    </resultMap>
+    <sql id="baseColumns">
+        a.word_id AS "wordId",
+        a.error_time AS  "errorTime",
+        a.difficulty_level AS "difficultyLevel"
+    </sql>
+</mapper>

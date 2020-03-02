@@ -8,6 +8,11 @@
         <result column="articleId" property="articleId"/>
         <result column="createDate" property="createDate"/>
         <result column="remark" property="remark"/>
+        <association property="englishWordPrictice"  javaType="com.study.en.domain.entity.EnglishWordPrictice">
+            <id column="wordId" property="wordId"/>
+            <result column="errorTime" property="errorTime"/>
+            <result column="difficultyLevel" property="difficultyLevel"/>
+        </association>
     </resultMap>
     <sql id="baseColumns">
         a.id,
@@ -17,10 +22,17 @@
         a.create_date AS  "createDate",
         a.remark AS "remark"
     </sql>
+    <sql id="pricticeColumns">
+        b.word_id AS "wordId",
+        b.error_time AS  "errorTime",
+        b.difficulty_level AS "difficultyLevel"
+    </sql>
     <select id="pageByLike" resultMap="baseResultMap">
         SELECT
-        <include refid="baseColumns"/>
-        FROM english_word a
+        <include refid="baseColumns"/> ,
+        <include refid="pricticeColumns"/>
+        FROM english_word a LEFT JOIN english_word_prictice b
+        on a.id = b.word_id
         WHERE 1=1
         <if test="word != null  and word != ''">
             AND a.word Like CONCAT('%',#{word},'%')
@@ -45,8 +57,10 @@
     </select>
     <select id="listByLike" resultMap="baseResultMap">
         SELECT
-        <include refid="baseColumns"/>
-        FROM english_word a
+        <include refid="baseColumns"/> ,
+        <include refid="pricticeColumns"/>
+        FROM english_word a LEFT JOIN english_word_prictice b
+        on a.id = b.word_id
         WHERE 1=1
         <if test="word != null  and word != ''">
             AND a.word Like CONCAT('%',#{word},'%')

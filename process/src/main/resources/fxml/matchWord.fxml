@@ -48,7 +48,7 @@
                 <HBox minWidth="100.0" maxWidth="100.0">
                     <AnchorPane>
                         <children>
-                            <Label fx:id="wordDidAndCount" layoutX="400.0" styleClass="hitTextLabel" text="0/0"
+                            <Label fx:id="wordDidAndCount" layoutX="420.0" styleClass="hitTextLabel" text="0/0"
                                    wrapText="false"/>
                         </children>
                     </AnchorPane>
@@ -73,6 +73,12 @@
                                 </ImageView>
                             </graphic>
                         </Button>
+                        <AnchorPane>
+                            <children>
+                            <Label layoutY="5.0" fx:id="errorTimeLabel" style="-fx-text-fill: red;-fx-font-weight: bold;
+                                 -fx-font-size: 1.2em;" text="0"/>
+                            </children>
+                        </AnchorPane>
                     </children>
                 </HBox>
             </VBox>

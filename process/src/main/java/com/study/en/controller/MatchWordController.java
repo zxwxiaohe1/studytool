@@ -1,9 +1,14 @@
 package com.study.en.controller;
 
 import com.study.en.domain.entity.EnglishWord;
+import com.study.en.domain.entity.EnglishWordPrictice;
+import com.study.en.domain.service.WordPricticeService;
+import com.study.en.domain.service.WordService;
 import com.study.en.modules.vo.Mean;
+import com.study.en.support.ennum.WordDiffType;
 import com.study.en.utils.ConstantUtil;
 import com.study.en.utils.DialogUtils;
+import com.study.en.utils.IdGen;
 import com.study.en.utils.JacksonUtil;
 import com.study.en.view.MatchWordView;
 import de.felixroske.jfxsupport.FXMLController;
@@ -42,11 +47,15 @@ public class MatchWordController extends BaseController implements Initializable
     @FXML
     public Label wordDidAndCount;
     @FXML
+    public Label errorTimeLabel;
+    @FXML
     public TextField inputWordTextField;
     @FXML
     public BorderPane matchWordContentPane;
     @Autowired
     private MatchWordView matchWordView;
+    @Autowired
+    private WordPricticeService wordPricticeService;
 
 
     @Override
@@ -76,7 +85,11 @@ public class MatchWordController extends BaseController implements Initializable
                     wordTargetLabel.setVisible(false);
                     englishWords.remove(0);
                     wordDidAndCount.setText((matchWordView.getAmount() - englishWords.size()) + "/" + matchWordView.getAmount());
-
+                    if (!ObjectUtils.isEmpty(word.getEnglishWordPrictice())) {
+                        errorTimeLabel.setText(String.valueOf(word.getEnglishWordPrictice().getErrorTime()));
+                    } else {
+                        errorTimeLabel.setText(WordDiffType.normal.sign());
+                    }
                 }
             }
         });
@@ -106,6 +119,16 @@ public class MatchWordController extends BaseController implements Initializable
             wordTargetLabel.setTextFill(Paint.valueOf("#006633"));
         } else {
             wordTargetLabel.setTextFill(Color.RED);
+            EnglishWordPrictice wordPrictice = new EnglishWordPrictice();
+            wordPrictice.setWordId(IdGen.uuid(wordTargetLabel.getText()));
+            wordPrictice.setErrorTime(Integer.valueOf(errorTimeLabel.getText().trim()) + 1);
+            if (WordDiffType.medium.errorTime().equals(wordPrictice.getErrorTime())) {
+                wordPrictice.setDifficultyLevel(WordDiffType.medium.sign());
+            } else if (WordDiffType.hard.errorTime().equals(wordPrictice.getErrorTime())) {
+                wordPrictice.setDifficultyLevel(WordDiffType.hard.sign());
+            }
+            wordPricticeService.saveOrUpdate(wordPrictice);
+            errorTimeLabel.setText(String.valueOf(wordPrictice.getErrorTime()));
         }
         wordTargetLabel.setVisible(true);
     }
@@ -128,7 +151,20 @@ public class MatchWordController extends BaseController implements Initializable
             inputWordTextField.setText("");
             englishWords.remove(0);
             wordDidAndCount.setText((matchWordView.getAmount() - englishWords.size()) + "/" + matchWordView.getAmount());
+            if (!ObjectUtils.isEmpty(word.getEnglishWordPrictice())) {
+                errorTimeLabel.setText(String.valueOf(word.getEnglishWordPrictice().getErrorTime()));
+            }
         } else {
+            EnglishWordPrictice wordPrictice = new EnglishWordPrictice();
+            wordPrictice.setWordId(IdGen.uuid(wordTargetLabel.getText()));
+            wordPrictice.setErrorTime(Integer.valueOf(errorTimeLabel.getText().trim()) + 1);
+            if (WordDiffType.medium.errorTime().equals(wordPrictice.getErrorTime())) {
+                wordPrictice.setDifficultyLevel(WordDiffType.medium.sign());
+            } else if (WordDiffType.hard.errorTime().equals(wordPrictice.getErrorTime())) {
+                wordPrictice.setDifficultyLevel(WordDiffType.hard.sign());
+            }
+            wordPricticeService.saveOrUpdate(wordPrictice);
+            errorTimeLabel.setText(String.valueOf(wordPrictice.getErrorTime()));
             DialogUtils.hintDialog("hint", "Please enter the word correctly!");
         }
     }

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50723
 File Encoding         : 65001
 
-Date: 2020-03-01 22:12:11
+Date: 2020-03-02 23:27:28
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -369,3 +369,27 @@ INSERT INTO `english_word` VALUES ('fb5c7f9b-b4b3-3ce2-b3bf-f4662f1ab27b', 'scie
 INSERT INTO `english_word` VALUES ('fb81c91e-b92d-3cb6-8aeb-64c3f37ef2c4', 'degree', '[{\"wordType\":\"n\",\"mean\":\" 程度,等级;度;学位;阶层\"}]', '30056e1c-ab7a-31d2-96fc-8edd970d14f5', '2020-02-25 07:55:07', null);
 INSERT INTO `english_word` VALUES ('fc46e26a-9078-3074-8758-b76166150f62', 'translate', '[{\"wordType\":\"vt\",\"mean\":\" 翻译;转化;解释;转变为;调动\"},{\"wordType\":\"vi\",\"mean\":\" 翻译\"}]', '30056e1c-ab7a-31d2-96fc-8edd970d14f5', '2020-02-25 07:55:07', null);
 INSERT INTO `english_word` VALUES ('ff2508c7-9c66-31a3-8a7f-dc99c67b10ab', 'deposit', '[{\"wordType\":\"n\",\"mean\":\" 存款;押金;订金;保证金;沉淀物\"},{\"wordType\":\"vt\",\"mean\":\" 使沉积;存放\"},{\"wordType\":\"vi\",\"mean\":\" 沉淀\"}]', '30056e1c-ab7a-31d2-96fc-8edd970d14f5', '2020-02-25 07:55:07', null);
+
+-- ----------------------------
+-- Table structure for english_word_prictice
+-- ----------------------------
+DROP TABLE IF EXISTS `english_word_prictice`;
+CREATE TABLE `english_word_prictice` (
+  `word_id` varchar(64) NOT NULL,
+  `error_time` int(11) NOT NULL DEFAULT '0' COMMENT '错误次数',
+  `difficulty_level` varchar(10) NOT NULL DEFAULT '0' COMMENT '单词记忆困难等级（0:正常，1:困难,2:特难）',
+  PRIMARY KEY (`word_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of english_word_prictice
+-- ----------------------------
+INSERT INTO `english_word_prictice` VALUES ('00236eac-dee8-3819-a9bf-9b3bc7da13c6', '5', '1');
+INSERT INTO `english_word_prictice` VALUES ('1145f263-256c-3237-96d2-b8eade2f6689', '1', '0');
+INSERT INTO `english_word_prictice` VALUES ('14447bfb-b2f9-38b9-97ad-32f96e7af40d', '5', '1');
+INSERT INTO `english_word_prictice` VALUES ('1993ee5c-be82-307a-89d8-b7320a2ab0b6', '3', '0');
+INSERT INTO `english_word_prictice` VALUES ('208c6aa1-5739-3b85-9bcd-4c3df2b08f2d', '15', '2');
+INSERT INTO `english_word_prictice` VALUES ('73d5342e-ba07-3f63-aac3-246f319bf77f', '8', '1');
+INSERT INTO `english_word_prictice` VALUES ('9c46408a-3bc6-35c6-8505-c57a11d6c4ee', '3', '0');
+INSERT INTO `english_word_prictice` VALUES ('d3440b69-126d-3c18-afdd-c713b18b0002', '5', '1');
+INSERT INTO `english_word_prictice` VALUES ('dd6d2dcc-679d-32b9-830a-9787bab45b33', '8', '0');

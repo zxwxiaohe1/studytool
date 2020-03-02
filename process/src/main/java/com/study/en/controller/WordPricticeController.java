@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.study.en.StudyApplication;
 import com.study.en.domain.entity.EnglishWord;
 import com.study.en.domain.service.WordService;
+import com.study.en.support.ennum.WordDiffType;
 import com.study.en.support.table.AddWordCell;
 import com.study.en.utils.IdGen;
 import com.study.en.view.MatchWordView;
@@ -215,10 +216,16 @@ public class WordPricticeController extends BaseController implements Initializa
         EnglishWord englishWord = new EnglishWord();
         if (articleRadioButton.isSelected()) {
             englishWord.setArticleId(IdGen.uuid(articleTitle.getText()));
-            matchWordView.setEnglishWords(wordService.listByLike(englishWord));
-        } else {
-            matchWordView.setEnglishWords(wordService.list(Wrappers.query(englishWord)));
         }
+        List<EnglishWord> words = wordService.listByLike(englishWord);
+        if (!ObjectUtils.isEmpty(words)) {
+            for (EnglishWord w : words) {
+                if (!ObjectUtils.isEmpty(w.getEnglishWordPrictice())) {
+                    w.getEnglishWordPrictice().setDifficultyLevel(WordDiffType.getWordDiff(w.getEnglishWordPrictice().getDifficultyLevel()));
+                }
+            }
+        }
+        matchWordView.setEnglishWords(words);
         if ("matchWordButton".equals(((Button) event.getSource()).getId())) {
             if (!matchWordView.getOpened()) {
                 StudyApplication.showView(matchWordView, Modality.NONE, "match word");

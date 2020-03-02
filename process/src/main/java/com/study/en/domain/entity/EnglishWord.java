@@ -55,6 +55,9 @@ public class EnglishWord extends BaseEntity<EnglishWord> {
     @TableField("remark")
     private String remark;
 
+    @TableField(exist = false)
+    private EnglishWordPrictice englishWordPrictice;
+
     public EnglishWord() {
     }
 
