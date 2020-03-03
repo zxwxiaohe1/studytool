@@ -153,6 +153,8 @@ public class MatchWordController extends BaseController implements Initializable
             wordDidAndCount.setText((matchWordView.getAmount() - englishWords.size()) + "/" + matchWordView.getAmount());
             if (!ObjectUtils.isEmpty(word.getEnglishWordPrictice())) {
                 errorTimeLabel.setText(String.valueOf(word.getEnglishWordPrictice().getErrorTime()));
+            } else {
+                errorTimeLabel.setText(String.valueOf(WordDiffType.normal.errorTime()));
             }
         } else {
             EnglishWordPrictice wordPrictice = new EnglishWordPrictice();

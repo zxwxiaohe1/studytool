@@ -6,6 +6,7 @@ import com.study.en.domain.entity.EnglishWord;
 import com.study.en.domain.service.WordService;
 import com.study.en.support.ennum.WordDiffType;
 import com.study.en.support.table.AddWordCell;
+import com.study.en.utils.DialogUtils;
 import com.study.en.utils.IdGen;
 import com.study.en.view.MatchWordView;
 import de.felixroske.jfxsupport.FXMLController;
@@ -16,6 +17,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -25,6 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -225,8 +229,43 @@ public class WordPricticeController extends BaseController implements Initializa
                 }
             }
         }
-        matchWordView.setEnglishWords(words);
         if ("matchWordButton".equals(((Button) event.getSource()).getId())) {
+            AnchorPane anchorPane = new AnchorPane();
+            HBox hBox = new HBox();
+            hBox.setLayoutX(30.0);
+            hBox.setLayoutY(35.0);
+            hBox.setSpacing(25.0);
+            ToggleGroup group = new ToggleGroup();
+            RadioButton normal = new RadioButton("all");
+            normal.setToggleGroup(group);
+            normal.setSelected(true);
+            RadioButton medium = new RadioButton("medium");
+            medium.setToggleGroup(group);
+            RadioButton hard = new RadioButton("hard");
+            hard.setToggleGroup(group);
+            hBox.getChildren().add(normal);
+            hBox.getChildren().add(medium);
+            hBox.getChildren().add(hard);
+            anchorPane.getChildren().add(hBox);
+            DialogUtils.operationDialog("difficult level", anchorPane);
+            Integer errorTime = WordDiffType.normal.errorTime();
+            if (medium.isSelected()) {
+                errorTime = WordDiffType.medium.errorTime();
+            } else if (hard.isSelected()) {
+                errorTime = WordDiffType.hard.errorTime();
+            }
+            if (WordDiffType.normal.errorTime().equals(errorTime)) {
+                matchWordView.setEnglishWords(words);
+            } else {
+                List<EnglishWord> targetWords = new ArrayList<>();
+                for (EnglishWord ew : words) {
+                    if (ObjectUtils.isEmpty(ew.getEnglishWordPrictice()) || ew.getEnglishWordPrictice().getErrorTime() < errorTime) {
+                        continue;
+                    }
+                    targetWords.add(ew);
+                }
+                matchWordView.setEnglishWords(targetWords);
+            }
             if (!matchWordView.getOpened()) {
                 StudyApplication.showView(matchWordView, Modality.NONE, "match word");
             }
