@@ -249,8 +249,10 @@ public class WordPricticeController extends BaseController implements Initializa
             anchorPane.getChildren().add(hBox);
             DialogUtils.operationDialog("difficult level", anchorPane);
             Integer errorTime = WordDiffType.normal.errorTime();
+            Integer maxErrorTime = Integer.MAX_VALUE;
             if (medium.isSelected()) {
                 errorTime = WordDiffType.medium.errorTime();
+                maxErrorTime = WordDiffType.hard.errorTime();
             } else if (hard.isSelected()) {
                 errorTime = WordDiffType.hard.errorTime();
             }
@@ -259,7 +261,9 @@ public class WordPricticeController extends BaseController implements Initializa
             } else {
                 List<EnglishWord> targetWords = new ArrayList<>();
                 for (EnglishWord ew : words) {
-                    if (ObjectUtils.isEmpty(ew.getEnglishWordPrictice()) || ew.getEnglishWordPrictice().getErrorTime() < errorTime) {
+                    if (ObjectUtils.isEmpty(ew.getEnglishWordPrictice())
+                            || ew.getEnglishWordPrictice().getErrorTime() < errorTime
+                            || ew.getEnglishWordPrictice().getErrorTime() >= maxErrorTime) {
                         continue;
                     }
                     targetWords.add(ew);
