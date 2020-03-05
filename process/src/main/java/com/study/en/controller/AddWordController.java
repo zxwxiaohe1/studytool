@@ -135,7 +135,11 @@ public class AddWordController implements Initializable {
                         word.setMean(meanId.getText());
                         if (!ObjectUtils.isEmpty(article)) {
                             if (StringUtils.isNotBlank(word.getArticleId())) {
-                                word.setArticleId(word.getArticleId().replaceAll(IdGen.uuid(ConstantUtil.ARTICLE_EMPTY_TITLE), "") + "," + article.getId());
+                                word.setArticleId(word.getArticleId()
+                                        .replaceAll(IdGen.uuid(ConstantUtil.ARTICLE_EMPTY_TITLE), "")
+                                        .replaceAll(article.getId(), "")
+                                        .replaceAll(ConstantUtil.FILE_POINT_ENGLISH+"+",ConstantUtil.FILE_POINT_ENGLISH)
+                                        + ConstantUtil.FILE_POINT_ENGLISH + article.getId());
                             } else {
                                 word.setArticleId(article.getId());
                             }
