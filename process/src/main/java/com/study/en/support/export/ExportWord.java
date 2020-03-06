@@ -1,17 +1,22 @@
 package com.study.en.support.export;
 
 import cn.hutool.extra.tokenizer.Word;
+import com.study.en.domain.entity.EnglishWord;
+import com.study.en.modules.vo.Mean;
 import com.study.en.modules.vo.SingleWord;
 import com.study.en.support.ennum.WordExportType;
 import com.study.en.support.ennum.WordType;
 import com.study.en.utils.ConstantUtil;
 import com.study.en.utils.FileUtil;
+import com.study.en.utils.JacksonUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.poifs.filesystem.DirectoryEntry;
 import org.apache.poi.poifs.filesystem.DocumentEntry;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.springframework.util.ObjectUtils;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +28,21 @@ import java.util.Map;
  */
 public class ExportWord {
 
+
+    public void execEnglishWord(List<EnglishWord> dataSet, String type, String docName) {
+        if (ObjectUtils.isEmpty(dataSet)) {
+            return;
+        }
+        List<SingleWord> sws = new ArrayList<>();
+        SingleWord sw = null;
+        for (EnglishWord ew : dataSet) {
+            sw = new SingleWord();
+            sw.setWord(ew.getWord());
+            sw.setMeans(JacksonUtil.json2JavaType(ew.getMean(), List.class, Mean.class));
+            sws.add(sw);
+        }
+        exec(sws, type, docName);
+    }
 
     public void exec(List<SingleWord> dataSet, String type, String docName) {
         Map<String, String> content = new HashMap<String, String>();

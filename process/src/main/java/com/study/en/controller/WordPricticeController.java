@@ -5,9 +5,13 @@ import com.study.en.StudyApplication;
 import com.study.en.domain.entity.EnglishWord;
 import com.study.en.domain.service.WordService;
 import com.study.en.support.ennum.WordDiffType;
+import com.study.en.support.ennum.WordExportType;
+import com.study.en.support.export.ExportWord;
 import com.study.en.support.table.AddWordCell;
+import com.study.en.utils.ConstantUtil;
 import com.study.en.utils.DialogUtils;
 import com.study.en.utils.IdGen;
+import com.study.en.utils.StringUtil;
 import com.study.en.view.MatchWordView;
 import de.felixroske.jfxsupport.FXMLController;
 import javafx.beans.property.SimpleStringProperty;
@@ -247,14 +251,28 @@ public class WordPricticeController extends BaseController implements Initializa
             hBox.getChildren().add(medium);
             hBox.getChildren().add(hard);
             anchorPane.getChildren().add(hBox);
-            DialogUtils.operationDialog("difficult level", anchorPane);
+
+            RadioButton exportButton = new RadioButton("export");
+            DialogUtils.operationDialog("difficult level", anchorPane, exportButton);
             Integer errorTime = WordDiffType.normal.errorTime();
             Integer maxErrorTime = Integer.MAX_VALUE;
+            String exportFileName = "all words" + ConstantUtil.FILE_EXPORT_SUFFIX;
             if (medium.isSelected()) {
                 errorTime = WordDiffType.medium.errorTime();
                 maxErrorTime = WordDiffType.hard.errorTime();
+                if (StringUtil.isNotBlank(articleTitle.getText())) {
+                    exportFileName = articleTitle.getText() + "-" + WordDiffType.medium.name() + ConstantUtil.FILE_EXPORT_SUFFIX;
+                } else {
+                    exportFileName = "all words" + "-" + WordDiffType.medium.name() + ConstantUtil.FILE_EXPORT_SUFFIX;
+                }
+
             } else if (hard.isSelected()) {
                 errorTime = WordDiffType.hard.errorTime();
+                if (StringUtil.isNotBlank(articleTitle.getText())) {
+                    exportFileName = articleTitle.getText() + "-" + WordDiffType.hard.name() + ConstantUtil.FILE_EXPORT_SUFFIX;
+                } else {
+                    exportFileName = "all words" + "-" + WordDiffType.hard.name() + ConstantUtil.FILE_EXPORT_SUFFIX;
+                }
             }
             if (WordDiffType.normal.errorTime().equals(errorTime)) {
                 matchWordView.setEnglishWords(words);
@@ -269,6 +287,11 @@ public class WordPricticeController extends BaseController implements Initializa
                     targetWords.add(ew);
                 }
                 matchWordView.setEnglishWords(targetWords);
+            }
+            if (exportButton.isSelected()) {
+                ExportWord exportWord = new ExportWord();
+                exportWord.execEnglishWord(matchWordView.getEnglishWords(), WordExportType.word.name(), exportFileName);
+                DialogUtils.hintDialog("export", "export success !");
             }
             if (!matchWordView.getOpened()) {
                 StudyApplication.showView(matchWordView, Modality.NONE, "match word");
