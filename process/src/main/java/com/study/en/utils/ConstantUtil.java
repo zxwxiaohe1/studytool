@@ -15,8 +15,11 @@ public class ConstantUtil {
     public final static String FILE_POINT_ENGLISH = ",";
     public final static String FILE_PERIOD_CHINESE = "。";
     public final static String FILE_PERIOD_ENGLISH = ".";
+    public final static String SYMBOL_JOINT_MARK  = "-";
     public final static String SPLIT_WORD_MEAN_CHAR = "-&-";
     public final static String ARTICLE_EMPTY_TITLE = "00000000";
+    public final static String EXPORT_SIGN_ALL_WORDS = "all words";
+
     /**
      * word文件模板路径
      */

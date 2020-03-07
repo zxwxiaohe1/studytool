@@ -38,11 +38,11 @@ public class IdGen {
     }
 
 
-	public static void main(String[] args) {
-		System.out.println(IdGen.uuid());
-		System.out.println(IdGen.uuid("qwe  rtt u i"));
+    public static void main(String[] args) {
+        System.out.println(IdGen.uuid());
+        System.out.println(IdGen.uuid("qwe  rtt u i"));
         System.out.println(IdGen.uuid(" q w e  r t  t u   i "));
         System.out.println(IdGen.uuid("qwe  rtt u iqwe  rtt u iqwe  rtt u iqwe  rtt u iqwe  rtt u iqwe  rtt u iqwe  rtt u i"));
-	}
+    }
 
 }

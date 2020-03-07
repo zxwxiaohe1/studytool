@@ -6,9 +6,9 @@ spring:
     # 使用druid数据源
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://172.39.8.241:3306/study_self?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
-    username: root
-    password: 111111x
+    url: jdbc:mysql://47.114.204.214:3306/study_self?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+    username: xiaohe
+    password: 111111x@xh
     filters: stat
     maxActive: 20
     initialSize: 1

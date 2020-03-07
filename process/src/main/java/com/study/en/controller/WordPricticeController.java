@@ -256,22 +256,22 @@ public class WordPricticeController extends BaseController implements Initializa
             DialogUtils.operationDialog("difficult level", anchorPane, exportButton);
             Integer errorTime = WordDiffType.normal.errorTime();
             Integer maxErrorTime = Integer.MAX_VALUE;
-            String exportFileName = "all words" + ConstantUtil.FILE_EXPORT_SUFFIX;
+            String exportFileName = ConstantUtil.EXPORT_SIGN_ALL_WORDS + ConstantUtil.FILE_EXPORT_SUFFIX;
             if (medium.isSelected()) {
                 errorTime = WordDiffType.medium.errorTime();
                 maxErrorTime = WordDiffType.hard.errorTime();
                 if (StringUtil.isNotBlank(articleTitle.getText())) {
-                    exportFileName = articleTitle.getText() + "-" + WordDiffType.medium.name() + ConstantUtil.FILE_EXPORT_SUFFIX;
+                    exportFileName = articleTitle.getText() + ConstantUtil.SYMBOL_JOINT_MARK + WordDiffType.medium.name() + ConstantUtil.FILE_EXPORT_SUFFIX;
                 } else {
-                    exportFileName = "all words" + "-" + WordDiffType.medium.name() + ConstantUtil.FILE_EXPORT_SUFFIX;
+                    exportFileName = ConstantUtil.EXPORT_SIGN_ALL_WORDS + ConstantUtil.SYMBOL_JOINT_MARK + WordDiffType.medium.name() + ConstantUtil.FILE_EXPORT_SUFFIX;
                 }
 
             } else if (hard.isSelected()) {
                 errorTime = WordDiffType.hard.errorTime();
                 if (StringUtil.isNotBlank(articleTitle.getText())) {
-                    exportFileName = articleTitle.getText() + "-" + WordDiffType.hard.name() + ConstantUtil.FILE_EXPORT_SUFFIX;
+                    exportFileName = articleTitle.getText() + ConstantUtil.SYMBOL_JOINT_MARK + WordDiffType.hard.name() + ConstantUtil.FILE_EXPORT_SUFFIX;
                 } else {
-                    exportFileName = "all words" + "-" + WordDiffType.hard.name() + ConstantUtil.FILE_EXPORT_SUFFIX;
+                    exportFileName = ConstantUtil.EXPORT_SIGN_ALL_WORDS + ConstantUtil.SYMBOL_JOINT_MARK + WordDiffType.hard.name() + ConstantUtil.FILE_EXPORT_SUFFIX;
                 }
             }
             if (WordDiffType.normal.errorTime().equals(errorTime)) {
