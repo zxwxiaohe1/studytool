@@ -8,6 +8,7 @@ import com.study.en.support.ennum.WordExportType;
 import com.study.en.support.ennum.WordType;
 import com.study.en.utils.ConstantUtil;
 import com.study.en.utils.FileUtil;
+import com.study.en.utils.IdGen;
 import com.study.en.utils.JacksonUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.poifs.filesystem.DirectoryEntry;
@@ -16,10 +17,8 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.springframework.util.ObjectUtils;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 导出Word
@@ -33,15 +32,7 @@ public class ExportWord {
         if (ObjectUtils.isEmpty(dataSet)) {
             return;
         }
-        List<SingleWord> sws = new ArrayList<>();
-        SingleWord sw = null;
-        for (EnglishWord ew : dataSet) {
-            sw = new SingleWord();
-            sw.setWord(ew.getWord());
-            sw.setMeans(JacksonUtil.json2JavaType(ew.getMean(), List.class, Mean.class));
-            sws.add(sw);
-        }
-        exec(sws, type, docName);
+        exec(sort(dataSet), type, docName);
     }
 
     public void exec(List<SingleWord> dataSet, String type, String docName) {
@@ -247,4 +238,24 @@ public class ExportWord {
         return source;
     }
 
+    public List<SingleWord> sort(List<EnglishWord> target) {
+        if (ObjectUtils.isEmpty(target)) {
+            return null;
+        }
+        Map<String, EnglishWord> appleMap = target.stream().collect(Collectors.toMap(EnglishWord::getWord, a -> a, (k1, k2) -> k1));
+        List<String> sortw = new ArrayList<>(appleMap.keySet());
+        Collections.sort(sortw);
+        List<SingleWord> words = new ArrayList<>();
+        for (String w : sortw) {
+            EnglishWord englishWord = appleMap.get(w);
+            if (ObjectUtils.isEmpty(englishWord)) {
+                continue;
+            }
+            SingleWord singleWord = new SingleWord();
+            singleWord.setWord(englishWord.getWord());
+            singleWord.setMeans(JacksonUtil.json2JavaType(englishWord.getMean(), List.class, Mean.class));
+            words.add(singleWord);
+        }
+        return words;
+    }
 }

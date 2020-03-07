@@ -8,10 +8,7 @@ import com.study.en.support.ennum.WordDiffType;
 import com.study.en.support.ennum.WordExportType;
 import com.study.en.support.export.ExportWord;
 import com.study.en.support.table.AddWordCell;
-import com.study.en.utils.ConstantUtil;
-import com.study.en.utils.DialogUtils;
-import com.study.en.utils.IdGen;
-import com.study.en.utils.StringUtil;
+import com.study.en.utils.*;
 import com.study.en.view.MatchWordView;
 import de.felixroske.jfxsupport.FXMLController;
 import javafx.beans.property.SimpleStringProperty;
@@ -257,7 +254,11 @@ public class WordPricticeController extends BaseController implements Initializa
             Integer errorTime = WordDiffType.normal.errorTime();
             Integer maxErrorTime = Integer.MAX_VALUE;
             String exportFileName = ConstantUtil.EXPORT_SIGN_ALL_WORDS + ConstantUtil.FILE_EXPORT_SUFFIX;
-            if (medium.isSelected()) {
+            if (normal.isSelected()) {
+                if (StringUtil.isNotBlank(articleTitle.getText())) {
+                    exportFileName = articleTitle.getText() + ConstantUtil.SYMBOL_JOINT_MARK + WordDiffType.normal.name() + ConstantUtil.FILE_EXPORT_SUFFIX;
+                }
+            } else if (medium.isSelected()) {
                 errorTime = WordDiffType.medium.errorTime();
                 maxErrorTime = WordDiffType.hard.errorTime();
                 if (StringUtil.isNotBlank(articleTitle.getText())) {
@@ -290,7 +291,7 @@ public class WordPricticeController extends BaseController implements Initializa
             }
             if (exportButton.isSelected()) {
                 ExportWord exportWord = new ExportWord();
-                exportWord.execEnglishWord(matchWordView.getEnglishWords(), WordExportType.word.name(), exportFileName);
+                exportWord.execEnglishWord(matchWordView.getEnglishWords(), WordExportType.word.name(), FileUtil.checkAndRename(exportFileName));
                 DialogUtils.hintDialog("export", "export success !");
             }
             if (!matchWordView.getOpened()) {

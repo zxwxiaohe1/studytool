@@ -4,7 +4,6 @@ package com.study.en.domain.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.study.en.domain.entity.EnglishWord;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 

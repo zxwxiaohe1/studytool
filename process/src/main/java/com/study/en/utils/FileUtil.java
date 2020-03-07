@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
  */
 public class FileUtil {
 
+    private static Pattern FilePattern = Pattern.compile("[\\\\/:*?\"<>|]");
     public final static String FILE_CONTENT_END_SIGN = "=end=";
 
     public static void IOAppend(String file, String conent) {
@@ -140,8 +141,10 @@ public class FileUtil {
             }
         }
     }
+
     /**
      * 从输入流中的得到字节
+     *
      * @param is InputStream类型
      * @return SecretKey
      */
@@ -156,6 +159,10 @@ public class FileUtil {
         is.close();
         baos.close();
         return bytes;
+    }
+
+    public static String checkAndRename(String fileName) {
+        return StringUtil.isBlank(fileName) ? "" : FilePattern.matcher(fileName).replaceAll(" ");
     }
 }
 

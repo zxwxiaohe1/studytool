@@ -1,7 +1,6 @@
 package com.study.en;
 
 import com.study.en.support.holder.SpringContextHolder;
-import com.study.en.view.MainView;
 import com.study.en.view.MatchWordView;
 import de.felixroske.jfxsupport.AbstractFxmlView;
 import de.felixroske.jfxsupport.AbstractJavaFxApplicationSupport;
