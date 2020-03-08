@@ -71,10 +71,12 @@ public class MatchWordController extends BaseController implements Initializable
                     List<EnglishWord> englishWords = matchWordView.getEnglishWords();
                     if (ObjectUtils.isEmpty(englishWords)) {
                         wordMeansLabel.setText("");
+                        errorTimeLabel.setText("");
                         wordDidAndCount.setText("0/0");
                         return;
                     }
-                    matchWordView.setAmount(englishWords.size());
+                    matchWordView.getPricticeResult().setError(0);
+                    matchWordView.getPricticeResult().setAmount(englishWords.size());
                     Collections.shuffle(englishWords);
                     EnglishWord word = englishWords.get(0);
                     if (ObjectUtils.isEmpty(word)) {
@@ -84,7 +86,7 @@ public class MatchWordController extends BaseController implements Initializable
                     wordTargetLabel.setText(word.getWord());
                     wordTargetLabel.setVisible(false);
                     englishWords.remove(0);
-                    wordDidAndCount.setText((matchWordView.getAmount() - englishWords.size()) + "/" + matchWordView.getAmount());
+                    wordDidAndCount.setText((matchWordView.getPricticeResult().getAmount() - englishWords.size()) + "/" + matchWordView.getPricticeResult().getAmount());
                     if (!ObjectUtils.isEmpty(word.getEnglishWordPrictice())) {
                         errorTimeLabel.setText(String.valueOf(word.getEnglishWordPrictice().getErrorTime()));
                     } else {
@@ -118,9 +120,13 @@ public class MatchWordController extends BaseController implements Initializable
         if (wordTargetLabel.getText().trim().toLowerCase().equals(inputWordTextField.getText().trim().toLowerCase())) {
             wordTargetLabel.setTextFill(Paint.valueOf("#006633"));
         } else {
+            String wordId = IdGen.uuid(wordTargetLabel.getText());
+            if (!wordId.equals(matchWordView.getWordPrictice().getWordId())) {
+                matchWordView.getPricticeResult().setError(matchWordView.getPricticeResult().getError() + 1);
+            }
             wordTargetLabel.setTextFill(Color.RED);
             EnglishWordPrictice wordPrictice = new EnglishWordPrictice();
-            wordPrictice.setWordId(IdGen.uuid(wordTargetLabel.getText()));
+            wordPrictice.setWordId(wordId);
             wordPrictice.setErrorTime(Integer.valueOf(errorTimeLabel.getText().trim()) + 1);
             if (WordDiffType.medium.errorTime().equals(wordPrictice.getErrorTime())) {
                 wordPrictice.setDifficultyLevel(WordDiffType.medium.sign());
@@ -129,6 +135,7 @@ public class MatchWordController extends BaseController implements Initializable
             }
             wordPricticeService.saveOrUpdate(wordPrictice);
             errorTimeLabel.setText(String.valueOf(wordPrictice.getErrorTime()));
+            matchWordView.setWordPrictice(wordPrictice);
         }
         wordTargetLabel.setVisible(true);
     }
@@ -138,7 +145,8 @@ public class MatchWordController extends BaseController implements Initializable
             wordTargetLabel.setTextFill(Paint.valueOf("#006633"));
             List<EnglishWord> englishWords = matchWordView.getEnglishWords();
             if (ObjectUtils.isEmpty(englishWords)) {
-                DialogUtils.hintDialog("hint", "no words!");
+                DialogUtils.hintDialog("hint", "end! error:" + matchWordView.getPricticeResult().getError()
+                        + " correct:" + (matchWordView.getPricticeResult().getAmount() - matchWordView.getPricticeResult().getError()));
                 return;
             }
             EnglishWord word = englishWords.get(0);
@@ -150,7 +158,7 @@ public class MatchWordController extends BaseController implements Initializable
             wordTargetLabel.setVisible(false);
             inputWordTextField.setText("");
             englishWords.remove(0);
-            wordDidAndCount.setText((matchWordView.getAmount() - englishWords.size()) + "/" + matchWordView.getAmount());
+            wordDidAndCount.setText((matchWordView.getPricticeResult().getAmount() - englishWords.size()) + "/" + matchWordView.getPricticeResult().getAmount());
             if (!ObjectUtils.isEmpty(word.getEnglishWordPrictice())) {
                 errorTimeLabel.setText(String.valueOf(word.getEnglishWordPrictice().getErrorTime()));
             } else {

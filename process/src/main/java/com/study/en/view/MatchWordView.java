@@ -1,6 +1,8 @@
 package com.study.en.view;
 
 import com.study.en.domain.entity.EnglishWord;
+import com.study.en.domain.entity.EnglishWordPrictice;
+import com.study.en.modules.vo.PricticeResult;
 import de.felixroske.jfxsupport.AbstractFxmlView;
 import de.felixroske.jfxsupport.FXMLView;
 import lombok.Getter;
@@ -20,5 +22,7 @@ public class MatchWordView extends AbstractFxmlView {
 
     private Boolean opened = false;
 
-    private Integer amount = 0;
+    private EnglishWordPrictice wordPrictice = new EnglishWordPrictice();
+
+    private PricticeResult pricticeResult = new PricticeResult();
 }
