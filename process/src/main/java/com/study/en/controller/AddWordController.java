@@ -148,10 +148,14 @@ public class AddWordController implements Initializable {
                                 word.setArticleId(IdGen.uuid(ConstantUtil.ARTICLE_EMPTY_TITLE));
                             }
                         }
+                        String temp = "";
                         StringBuilder target = new StringBuilder(meanId.getText().replaceAll(" +", ""));
-                        for (WordType w : WordType.values()) {
-                            if (target.toString().contains(w.name() + ConstantUtil.FILE_PERIOD_ENGLISH)) {
-                                target.insert(target.toString().indexOf(w.name() + ConstantUtil.FILE_PERIOD_ENGLISH), ConstantUtil.SPLIT_WORD_MEAN_CHAR);
+                        for (WordType w : WordType.getChildByLengthDesc()) {
+                            temp = target.toString();
+                            if (temp.contains(w.name() + ConstantUtil.FILE_PERIOD_ENGLISH)) {
+                                temp = temp.replaceAll(w.name() + ConstantUtil.FILE_PERIOD_ENGLISH,w.name() + ConstantUtil.SYMBOL_JOINT_MARK);
+                                target = new StringBuilder(temp);
+                                target.insert(target.toString().indexOf(w.name() + ConstantUtil.SYMBOL_JOINT_MARK), ConstantUtil.SPLIT_WORD_MEAN_CHAR);
                             }
                         }
                         String[] meanStrs = target.toString().split(ConstantUtil.SPLIT_WORD_MEAN_CHAR);
@@ -160,7 +164,7 @@ public class AddWordController implements Initializable {
                         for (String meanStr : meanStrs) {
                             if (StringUtils.isNotBlank(meanStr)) {
                                 Mean mean = new Mean();
-                                meanSplitStrs = meanStr.trim().split("\\" + ConstantUtil.FILE_PERIOD_ENGLISH);
+                                meanSplitStrs = meanStr.trim().split("\\" + ConstantUtil.SYMBOL_JOINT_MARK);
                                 if (meanSplitStrs.length >= 2) {
                                     mean.setWordType(meanSplitStrs[0]);
                                     mean.setMean(meanSplitStrs[1]);

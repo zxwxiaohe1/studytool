@@ -1,13 +1,23 @@
 package com.study.en.support.ennum;
 
+import com.study.en.utils.JacksonUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 /**
- * Created by heyong on 2019/4/26.
+ * @author heyong
+ * @date 2019/4/26
  */
+@Slf4j
 public enum WordType {
     /**
      * 名词
      */
-    n(){
+    n() {
         @Override
         public String type() {
             return "名词";
@@ -16,7 +26,7 @@ public enum WordType {
     /**
      * 动词
      */
-    v(){
+    v() {
         @Override
         public String type() {
             return "动词";
@@ -25,7 +35,7 @@ public enum WordType {
     /**
      * 形容词
      */
-    adj(){
+    adj() {
         @Override
         public String type() {
             return "形容词";
@@ -34,7 +44,7 @@ public enum WordType {
     /**
      * 副词
      */
-    adv(){
+    adv() {
         @Override
         public String type() {
             return "副词";
@@ -43,7 +53,7 @@ public enum WordType {
     /**
      * 不及物动词
      */
-    vi(){
+    vi() {
         @Override
         public String type() {
             return "不及物动词";
@@ -52,7 +62,7 @@ public enum WordType {
     /**
      * 数量词
      */
-    num(){
+    num() {
         @Override
         public String type() {
             return "数量词";
@@ -61,7 +71,7 @@ public enum WordType {
     /**
      * 连词
      */
-    conj(){
+    conj() {
         @Override
         public String type() {
             return "连词";
@@ -70,7 +80,7 @@ public enum WordType {
     /**
      * 及物动词
      */
-    vt(){
+    vt() {
         @Override
         public String type() {
             return "及物动词";
@@ -79,33 +89,69 @@ public enum WordType {
     /**
      * 介词
      */
-    prep(){
+    prep() {
         @Override
         public String type() {
             return "介词";
         }
     };
+
     /**
+     * @return String
      * @Title: driver Type
      * @Description: 获得驱动
-     * @return String
-     * */
+     */
     public abstract String type();
+
     /**
+     * @return String
      * @Title: getDriverType
      * @Description: 获得驱动
-     * @return String
-     * */
+     */
     public static String type(String type) {
-        if(type == null) {
+        if (type == null) {
             return "";
         }
         type = type.toLowerCase();
-        for(WordType v : values()) {
-            if(type.trim().equals(v.name().trim()))  {
+        for (WordType v : values()) {
+            if (type.trim().equals(v.name().trim())) {
                 return v.type();
             }
         }
         return "";
+    }
+
+    public static List<WordType> getChildByLengthDesc() {
+        LinkedList<WordType> wts = new LinkedList<WordType>();
+        for (WordType wt : values()) {
+            linkedListOrder(wts, wt, null);
+        }
+        log.info("word type ==>" + JacksonUtil.bean2Json(wts));
+        return wts;
+    }
+
+    private static void linkedListOrder(LinkedList<WordType> wts, WordType wt, Integer index) {
+        if (ObjectUtils.isEmpty(wts)) {
+            wts.add(wt);
+            return;
+        }
+        if (index == null) {
+            if (wt.name().length() < wts.getLast().name().length()) {
+                wts.addLast(wt);
+                return;
+            } else {
+                linkedListOrder(wts, wt, wts.size() - 2);
+            }
+        } else if (index == -1) {
+            wts.addFirst(wt);
+            return;
+        } else {
+            if (wt.name().length() < wts.get(index).name().length()) {
+                wts.add(index + 1, wt);
+                return;
+            } else {
+                linkedListOrder(wts, wt, index - 1);
+            }
+        }
     }
 }
