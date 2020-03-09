@@ -178,16 +178,4 @@ public class MatchWordController extends BaseController implements Initializable
             DialogUtils.hintDialog("hint", "Please enter the word correctly!");
         }
     }
-
-    private String createViewMean(List<Mean> means) {
-        if (ObjectUtils.isEmpty(means)) {
-            return "";
-        }
-        String meanStr = "";
-        for (Mean m : means) {
-            meanStr += m.getWordType() + ConstantUtil.FILE_PERIOD_ENGLISH + m.getMean() + "\n";
-        }
-        return meanStr;
-    }
-
 }

@@ -3,6 +3,7 @@ package com.study.en.domain.service;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.study.en.domain.entity.EnglishWord;
 import com.study.en.domain.mapper.EnglishWordMapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,4 +30,14 @@ public class WordService extends ServiceImpl<EnglishWordMapper, EnglishWord> {
     public List<EnglishWord> listByLike(EnglishWord englishWord) {
         return baseMapper.listByLike(englishWord);
     }
+
+    /**
+     * @param id
+     * @return
+     */
+    public EnglishWord selectById(String id) {
+        return baseMapper.selectById(id);
+    }
+
+    ;
 }

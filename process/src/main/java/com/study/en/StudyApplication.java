@@ -1,7 +1,9 @@
 package com.study.en;
 
+import com.study.en.controller.WordEditController;
 import com.study.en.support.holder.SpringContextHolder;
 import com.study.en.view.MatchWordView;
+import com.study.en.view.WordEditView;
 import de.felixroske.jfxsupport.AbstractFxmlView;
 import de.felixroske.jfxsupport.AbstractJavaFxApplicationSupport;
 import javafx.application.HostServices;
@@ -88,6 +90,10 @@ public class StudyApplication extends AbstractJavaFxApplicationSupport {
                 if ("match word".replaceAll(" +", "").toLowerCase()
                         .equals(paneTitle)) {
                     SpringContextHolder.getBean(MatchWordView.class).setOpened(false);
+                } else if ("edit word".replaceAll(" +", "").toLowerCase()
+                        .equals(paneTitle)) {
+                    SpringContextHolder.getBean(WordEditView.class).setOpened(false);
+                    SpringContextHolder.getBean(WordEditController.class).getWordTextField().requestFocus();
                 }
                 newStage.close();
             }

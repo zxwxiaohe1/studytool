@@ -38,7 +38,7 @@ import java.util.*;
  * @author heyong
  */
 @FXMLController
-public class AddWordController implements Initializable {
+public class AddWordController extends BaseController implements Initializable {
 
     @FXML
     public BorderPane addWordPane;
@@ -132,13 +132,12 @@ public class AddWordController implements Initializable {
                         } else {
 
                         }
-                        word.setMean(meanId.getText());
                         if (!ObjectUtils.isEmpty(article)) {
                             if (StringUtils.isNotBlank(word.getArticleId())) {
                                 word.setArticleId(word.getArticleId()
                                         .replaceAll(IdGen.uuid(ConstantUtil.ARTICLE_EMPTY_TITLE), "")
                                         .replaceAll(article.getId(), "")
-                                        .replaceAll(ConstantUtil.FILE_POINT_ENGLISH+"+",ConstantUtil.FILE_POINT_ENGLISH)
+                                        .replaceAll(ConstantUtil.FILE_POINT_ENGLISH + "+", ConstantUtil.FILE_POINT_ENGLISH)
                                         + ConstantUtil.FILE_POINT_ENGLISH + article.getId());
                             } else {
                                 word.setArticleId(article.getId());
@@ -148,31 +147,7 @@ public class AddWordController implements Initializable {
                                 word.setArticleId(IdGen.uuid(ConstantUtil.ARTICLE_EMPTY_TITLE));
                             }
                         }
-                        String temp = "";
-                        StringBuilder target = new StringBuilder(meanId.getText().replaceAll(" +", ""));
-                        for (WordType w : WordType.getChildByLengthDesc()) {
-                            temp = target.toString();
-                            if (temp.contains(w.name() + ConstantUtil.FILE_PERIOD_ENGLISH)) {
-                                temp = temp.replaceAll(w.name() + ConstantUtil.FILE_PERIOD_ENGLISH,w.name() + ConstantUtil.SYMBOL_JOINT_MARK);
-                                target = new StringBuilder(temp);
-                                target.insert(target.toString().indexOf(w.name() + ConstantUtil.SYMBOL_JOINT_MARK), ConstantUtil.SPLIT_WORD_MEAN_CHAR);
-                            }
-                        }
-                        String[] meanStrs = target.toString().split(ConstantUtil.SPLIT_WORD_MEAN_CHAR);
-                        String[] meanSplitStrs;
-                        List<Mean> wordMeans = new ArrayList<>();
-                        for (String meanStr : meanStrs) {
-                            if (StringUtils.isNotBlank(meanStr)) {
-                                Mean mean = new Mean();
-                                meanSplitStrs = meanStr.trim().split("\\" + ConstantUtil.SYMBOL_JOINT_MARK);
-                                if (meanSplitStrs.length >= 2) {
-                                    mean.setWordType(meanSplitStrs[0]);
-                                    mean.setMean(meanSplitStrs[1]);
-                                    wordMeans.add(mean);
-                                }
-                            }
-                        }
-                        word.setMean(JacksonUtil.bean2Json(wordMeans));
+                        word.setMean(JacksonUtil.bean2Json(formatMeanToObj(meanId.getText())));
                         word.setCreateDate(new Date());
                         wordService.saveOrUpdate(word);
                     } else if (WordExportType.sentence.name().equals(selected)) {

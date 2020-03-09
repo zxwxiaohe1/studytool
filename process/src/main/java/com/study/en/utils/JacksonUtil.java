@@ -11,6 +11,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.util.ObjectUtils;
 
 /**
  * @author heyong
@@ -24,6 +25,9 @@ public class JacksonUtil {
      * @throws IOException
      */
     public static String bean2Json(Object obj) {
+        if (ObjectUtils.isEmpty(obj)) {
+            return "";
+        }
         StringWriter sw = null;
         JsonGenerator gen = null;
         try {

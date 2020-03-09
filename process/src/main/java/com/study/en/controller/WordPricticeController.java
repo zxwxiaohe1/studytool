@@ -1,6 +1,5 @@
 package com.study.en.controller;
 
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.study.en.StudyApplication;
 import com.study.en.domain.entity.EnglishWord;
 import com.study.en.domain.service.WordService;

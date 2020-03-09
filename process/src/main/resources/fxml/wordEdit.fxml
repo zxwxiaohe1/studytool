@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<BorderPane fx:id="wordEditPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="400.0" prefWidth="650.0" stylesheets="@../css/format.css"
+            xmlns="http://javafx.com/javafx/8.0.141"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.study.en.controller.WordEditController">
+    <center>
+        <Pane>
+            <VBox layoutX="80.0" layoutY="30.0" spacing="20.0">
+                <AnchorPane>
+                    <HBox spacing="5.0">
+                        <HBox>
+                            <AnchorPane>
+                                <Label prefHeight="20.0" text="Word:"/>
+                                <TextField layoutX="52.0" minHeight="27.0" minWidth="300.0" fx:id="wordTextField"/>
+                            </AnchorPane>
+                        </HBox>
+                        <HBox>
+                            <AnchorPane>
+                                <TextField layoutY="2.0" minHeight="24.0" minWidth="40.0" maxWidth="40.0"
+                                           style="-fx-text-fill: red" fx:id="errorTimeTextField"/>
+                                <Button layoutX="45.0" fx:id="wrongNumButton" onAction="#updataWordPricticeAction"
+                                        text="wrong num"/>
+                            </AnchorPane>
+                        </HBox>
+                    </HBox>
+                    <HBox layoutY="50.0" spacing="15.0">
+                        <HBox>
+                            <AnchorPane>
+                                <Label prefHeight="20.0" text="Arts:"/>
+                                <TextField layoutX="52.0" minHeight="27.0" minWidth="300.0" fx:id="artsTextField"/>
+                            </AnchorPane>
+                        </HBox>
+                    </HBox>
+                    <HBox layoutY="100.0" spacing="10.0">
+                        <Label prefHeight="30.0" styleClass="guideLabel" text="Mean:"/>
+                        <TextArea minHeight="150.0" maxHeight="150.0" minWidth="250.0" maxWidth="800.0"
+                                  fx:id="meanTextField" editable="true" wrapText="true"/>
+                    </HBox>
+                    <HBox layoutX="50.0" layoutY="280.0">
+                        <Button fx:id="editConfirmButton" onAction="#editConfirmAction" text="confirm"/>
+                    </HBox>
+                </AnchorPane>
+            </VBox>
+        </Pane>
+    </center>
+</BorderPane>
