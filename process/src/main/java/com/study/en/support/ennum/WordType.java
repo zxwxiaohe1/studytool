@@ -94,6 +94,12 @@ public enum WordType {
         public String type() {
             return "介词";
         }
+    },
+    aux() {
+        @Override
+        public String type() {
+            return "助动词";
+        }
     };
 
     /**
