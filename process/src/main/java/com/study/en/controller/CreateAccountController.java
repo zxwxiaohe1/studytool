@@ -15,6 +15,8 @@ import javafx.scene.paint.Paint;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Date;
+
 /**
  * @author heyong
  * @date 2020/3/28
@@ -89,6 +91,7 @@ public class CreateAccountController {
         accountBackup.setSysUrl(urlTextField.getText());
         accountBackup.setLoginName(loginNameTextField.getText());
         accountBackup.setRemarks(remarksTextArea.getText());
+        accountBackup.setCreateDate(new Date());
         try {
             SecurityAccount securityAccount = new SecurityAccount(name, phone, idcard, salt);
             securityAccount.setProof(Des3.encode(JacksonUtil.bean2Json(securityAccount)));
