@@ -1,0 +1,2 @@
+param1:en/de,param2:name,param3:phone,param4:idNum,param5:password !
+decode target = 111111x

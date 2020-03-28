@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<BorderPane fx:id="createAccountPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity"
+            prefHeight="550.0"
+            prefWidth="800.0" stylesheets="@../css/format.css" xmlns="http://javafx.com/javafx/8.0.141"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.study.en.controller.CreateAccountController">
+    <center>
+        <Pane>
+            <VBox layoutX="35.0" layoutY="60.0" spacing="15.0">
+                <VBox>
+                    <HBox spacing="10.0">
+                        <Label prefHeight="20.0" text="SysName:"/>
+                        <TextField minHeight="35.0" minWidth="350.0" fx:id="sysNameTextField" editable="true"/>
+                        <Label prefHeight="20.0" text="Name:"/>
+                        <TextField minHeight="35.0" minWidth="250.0" fx:id="nameTextField" editable="true"/>
+                    </HBox>
+                    <HBox>
+                        <AnchorPane>
+                            <Label layoutX="80.0" prefHeight="20.0" styleClass="hintLabel" fx:id="nameDialog"/>
+                        </AnchorPane>
+                    </HBox>
+                </VBox>
+                <VBox>
+                    <HBox spacing="10.0">
+                        <Label prefHeight="30.0" styleClass="guideLabel" text="SystemUrl:"/>
+                        <TextField minHeight="35.0" minWidth="350.0" fx:id="urlTextField" editable="true"/>
+                        <Label prefHeight="30.0" styleClass="guideLabel" text="Phone:"/>
+                        <TextField minHeight="35.0" minWidth="250.0" fx:id="phoneTextField" editable="true"/>
+                    </HBox>
+                    <HBox>
+                        <AnchorPane>
+                            <Label layoutX="80.0" prefHeight="20.0" styleClass="hintLabel" fx:id="phoneDialog"/>
+                        </AnchorPane>
+                    </HBox>
+                </VBox>
+                <VBox>
+                    <HBox spacing="10.0">
+                        <Label prefHeight="30.0" styleClass="guideLabel" text="LginName:"/>
+                        <TextField minHeight="35.0" minWidth="350.0" fx:id="loginNameTextField" editable="true"/>
+                        <Label prefHeight="30.0" styleClass="guideLabel" text="Idcard:"/>
+                        <TextField minHeight="35.0" minWidth="250.0" fx:id="idcardTextField" editable="true"/>
+                    </HBox>
+                    <HBox>
+                        <AnchorPane>
+                            <Label layoutX="80.0" prefHeight="20.0" styleClass="hintLabel" fx:id="idcardDialog"/>
+                        </AnchorPane>
+                    </HBox>
+                </VBox>
+                <VBox>
+                    <HBox spacing="10.0">
+                        <Label prefHeight="30.0" styleClass="guideLabel" text="Password:"/>
+                        <TextField minHeight="35.0" minWidth="350.0" fx:id="passwdTextField" editable="true"/>
+                        <Label prefHeight="30.0" styleClass="guideLabel" text="PsSalt:"/>
+                        <TextField minHeight="35.0" minWidth="250.0" fx:id="saltTextField" editable="true"/>
+                    </HBox>
+                    <HBox>
+                        <AnchorPane>
+                            <Label layoutX="80.0" prefHeight="20.0" styleClass="hintLabel" fx:id="passwdDialog"/>
+                        </AnchorPane>
+                    </HBox>
+                </VBox>
+                <VBox>
+                    <HBox spacing="10.0">
+                        <Label prefHeight="30.0" styleClass="guideLabel" text="Remarks:"/>
+                        <TextArea minHeight="60.0" maxHeight="100.0" minWidth="550.0" fx:id="remarksTextArea"
+                                  editable="true" wrapText="true"/>
+                    </HBox>
+                </VBox>
+                <VBox>
+                    <AnchorPane>
+                        <Button layoutX="150.0" maxWidth="100.0" minWidth="100.0" minHeight="25.0" text="commit"
+                                alignment="BASELINE_LEFT" onAction="#createButtonAction">
+                            <graphic>
+                                <ImageView>
+                                    <Image url="/image/export.png"/>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                    </AnchorPane>
+                </VBox>
+            </VBox>
+        </Pane>
+    </center>
+</BorderPane>

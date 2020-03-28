@@ -7,6 +7,9 @@ import javafx.beans.property.BooleanProperty;
 import java.io.IOException;
 import java.lang.reflect.Type;
 
+/**
+ * @author heyong
+ */
 public class BooleanPropertySerializer implements ObjectSerializer {
 
     @Override

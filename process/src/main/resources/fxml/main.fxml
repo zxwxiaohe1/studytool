@@ -9,7 +9,14 @@
     <top>
         <MenuBar fx:id="menuBar" BorderPane.alignment="CENTER">
             <Menu mnemonicParsing="false" text="文件">
-                <MenuItem mnemonicParsing="false" onAction="#test" text="sql导入">
+                <MenuItem mnemonicParsing="false" onAction="#showCreateAccountView" text="create account">
+                    <graphic>
+                        <ImageView>
+                            <Image url="/image/add-database.png"/>
+                        </ImageView>
+                    </graphic>
+                </MenuItem>
+                <MenuItem mnemonicParsing="false" onAction="#showdecodePasswordView" text="decode password">
                     <graphic>
                         <ImageView>
                             <Image url="/image/add-database.png"/>

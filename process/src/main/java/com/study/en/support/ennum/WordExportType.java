@@ -1,7 +1,9 @@
 package com.study.en.support.ennum;
 
 /**
- * Created by heyong on 2019/4/26.
+ *
+ * @author heyong
+ * @date 2019/4/26
  */
 public enum WordExportType {
     /**
