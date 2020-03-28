@@ -3,10 +3,7 @@ package com.study.en.controller;
 import com.study.en.domain.entity.AccountBackup;
 import com.study.en.domain.service.AccountBackupService;
 import com.study.en.modules.vo.SecurityAccount;
-import com.study.en.utils.Des3;
-import com.study.en.utils.DialogUtils;
-import com.study.en.utils.IdGen;
-import com.study.en.utils.JacksonUtil;
+import com.study.en.utils.*;
 import de.felixroske.jfxsupport.FXMLController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -95,7 +92,7 @@ public class CreateAccountController {
         try {
             SecurityAccount securityAccount = new SecurityAccount(name, phone, idcard, salt);
             securityAccount.setProof(Des3.encode(JacksonUtil.bean2Json(securityAccount)));
-            securityAccount.setPasswd(Des3.encode(passwd));
+            securityAccount.setPasswd(DesUtil.encrypt(passwd, salt));
             accountBackup.setPassword(Des3.encode(JacksonUtil.bean2Json(securityAccount)));
             accountBackupService.save(accountBackup);
             DialogUtils.hintDialog("create account", "create account sucess !");

@@ -84,9 +84,9 @@ public class DecodePasswordController {
         }
         try {
             String proof = Des3.encode(JacksonUtil.bean2Json(new SecurityAccount(name, phone, idcard, salt)));
-            SecurityAccount securityAccount = JacksonUtil.json2Bean(Des3.decode(enPass),SecurityAccount.class);
+            SecurityAccount securityAccount = JacksonUtil.json2Bean(Des3.decode(enPass), SecurityAccount.class);
             if (proof.trim().equals(securityAccount.getProof())) {
-                passwdTextField.setText(Des3.decode(securityAccount.getPasswd()));
+                passwdTextField.setText(DesUtil.decrypt(securityAccount.getPasswd(), salt));
             } else {
                 passwdTextField.setText("");
                 DialogUtils.hintDialog("error", "info error !");
