@@ -26,7 +26,7 @@
         <fastjson.version>1.2.47</fastjson.version>
         <commons-lang3.version>3.3.2</commons-lang3.version>
         <mybatis-plus-boot-starter.version>3.0.6</mybatis-plus-boot-starter.version>
-        <mysql-connector-java.version>8.0.13</mysql-connector-java.version>
+        <mysql-connector-java.version>8.0.16</mysql-connector-java.version>
         <springboot-javafx-support>2.1.6</springboot-javafx-support>
     </properties>
 
