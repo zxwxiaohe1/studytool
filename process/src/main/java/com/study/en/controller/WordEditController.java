@@ -103,12 +103,14 @@ public class WordEditController extends BaseController implements Initializable 
             if (!ObjectUtils.isEmpty(articles)) {
                 articleMaps = articles.stream().collect(Collectors.toMap(EnglishArticle::getId, EnglishArticle::getTitle));
             }
-            String arts = "";
-            for (String art : artsStr) {
-                if (ObjectUtils.isEmpty(articleMaps.get(IdGen.uuid(art)))) {
-                    continue;
+            String arts = artsTextField.getText();
+            if (!ObjectUtils.isEmpty(articles)) {
+                for (String art : artsStr) {
+                    if (ObjectUtils.isEmpty(articleMaps.get(IdGen.uuid(art)))) {
+                        continue;
+                    }
+                    arts += IdGen.uuid(art) + ConstantUtil.FILE_POINT_ENGLISH;
                 }
-                arts += IdGen.uuid(art) + ConstantUtil.FILE_POINT_ENGLISH;
             }
             englishWord.setArticleId(arts);
         }

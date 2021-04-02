@@ -35,6 +35,15 @@ public enum WordType {
     /**
      * 形容词
      */
+    a() {
+        @Override
+        public String type() {
+            return "形容词";
+        }
+    },
+    /**
+     * 形容词
+     */
     adj() {
         @Override
         public String type() {
